@@ -149,6 +149,7 @@
 				TargetAttributes = {
 					71E4EA401E6CDE7400CFF95A = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 98A95ZRNVF;
 						ProvisioningStyle = Automatic;
 					};
 					71E4EA571E6CDE7400CFF95A = {
@@ -341,7 +342,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 98A95ZRNVF;
 				INFOPLIST_FILE = tink_chat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.tcsbank.tink-chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -353,7 +356,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 98A95ZRNVF;
 				INFOPLIST_FILE = tink_chat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.tcsbank.tink-chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -408,6 +413,7 @@
 				71E4EA631E6CDE7400CFF95A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		71E4EA641E6CDE7400CFF95A /* Build configuration list for PBXNativeTarget "tink_chatTests" */ = {
 			isa = XCConfigurationList;
@@ -416,6 +422,7 @@
 				71E4EA661E6CDE7400CFF95A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
