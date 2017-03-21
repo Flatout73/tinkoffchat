@@ -15,15 +15,46 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBOutlet weak var avatar: UIImageView!
     
     @IBAction func tapOnImsge(_ sender: Any) {
-        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
-            let imagePicker = UIImagePickerController()
+        
+        var myActionSheet = UIAlertController(title: "Действие", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let add = UIAlertAction(title: "Добавить фото", style: UIAlertActionStyle.default) { (ACTION) in
+            if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
+                let imagePicker = UIImagePickerController()
+                
+                imagePicker.delegate = self
+                imagePicker.allowsEditing = false
+                imagePicker.sourceType = .photoLibrary
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
             
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = false
-            imagePicker.sourceType = .photoLibrary
-            
-            self.present(imagePicker, animated: true, completion: nil)
         }
+        
+        let del = UIAlertAction(title: "Удалить", style: UIAlertActionStyle.destructive) { (ACTION) in
+            self.avatar.image = #imageLiteral(resourceName: "no_photo")
+        }
+        
+        let camera = UIAlertAction(title: "Сфотографировать", style: UIAlertActionStyle.default){
+            (Action) in
+            if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+                let cam = UIImagePickerController()
+                cam.delegate = self
+                cam.sourceType = .camera
+                cam.allowsEditing = false
+                self.present(cam, animated: true, completion: nil)
+            }
+            
+        }
+
+        
+        myActionSheet.addAction(add)
+        myActionSheet.addAction(camera)
+        myActionSheet.addAction(del)
+        
+        self.present(myActionSheet, animated: true, completion: nil)
+        
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
