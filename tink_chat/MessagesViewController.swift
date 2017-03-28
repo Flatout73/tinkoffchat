@@ -50,6 +50,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageID", for: indexPath) as? BubbleMessageCell
         if let c = cell {
             c.messageLabel.text = messages[indexPath.section]
+            c.textM = messages[indexPath.section]
             return c
         } else {
             return cell!
@@ -59,6 +60,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
          let cell = tableView.dequeueReusableCell(withIdentifier: "meMessageID", for: indexPath) as? BubbleMessageCell
             if let c = cell {
                 c.messageLabel.text = messages[indexPath.section]
+                c.textM = messages[indexPath.section]
                 return c
             } else {
                 return cell!
