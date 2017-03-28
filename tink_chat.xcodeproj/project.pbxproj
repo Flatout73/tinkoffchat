@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		712EA5611E8AD27D00547C7F /* BubbleMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712EA5601E8AD27D00547C7F /* BubbleMessageCell.swift */; };
+		712EA5631E8AD91500547C7F /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712EA5621E8AD91500547C7F /* MessagesViewController.swift */; };
+		712EA5651E8B020600547C7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 712EA5641E8B020600547C7F /* Main.storyboard */; };
 		71E4EA451E6CDE7400CFF95A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E4EA441E6CDE7400CFF95A /* AppDelegate.swift */; };
 		71E4EA471E6CDE7400CFF95A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E4EA461E6CDE7400CFF95A /* ViewController.swift */; };
-		71E4EA4A1E6CDE7400CFF95A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71E4EA481E6CDE7400CFF95A /* Main.storyboard */; };
 		71E4EA4D1E6CDE7400CFF95A /* tink_chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71E4EA4B1E6CDE7400CFF95A /* tink_chat.xcdatamodeld */; };
 		71E4EA4F1E6CDE7400CFF95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71E4EA4E1E6CDE7400CFF95A /* Assets.xcassets */; };
 		71E4EA521E6CDE7400CFF95A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71E4EA501E6CDE7400CFF95A /* LaunchScreen.storyboard */; };
 		71E4EA5D1E6CDE7400CFF95A /* tink_chatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E4EA5C1E6CDE7400CFF95A /* tink_chatTests.swift */; };
+		71ECAC4C1E89AACF0097F27A /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECAC4B1E89AACF0097F27A /* ConversationCell.swift */; };
+		71ECAC4E1E89B7040097F27A /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECAC4D1E89B7040097F27A /* ConversationsListViewController.swift */; };
+		71ECAC501E89D9D70097F27A /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECAC4F1E89D9D70097F27A /* CellData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,10 +32,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		712EA5601E8AD27D00547C7F /* BubbleMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleMessageCell.swift; sourceTree = "<group>"; };
+		712EA5621E8AD91500547C7F /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		712EA5641E8B020600547C7F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		71E4EA411E6CDE7400CFF95A /* tink_chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tink_chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71E4EA441E6CDE7400CFF95A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71E4EA461E6CDE7400CFF95A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		71E4EA491E6CDE7400CFF95A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		71E4EA4C1E6CDE7400CFF95A /* tink_chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tink_chat.xcdatamodel; sourceTree = "<group>"; };
 		71E4EA4E1E6CDE7400CFF95A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71E4EA511E6CDE7400CFF95A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +45,9 @@
 		71E4EA581E6CDE7400CFF95A /* tink_chatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tink_chatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71E4EA5C1E6CDE7400CFF95A /* tink_chatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tink_chatTests.swift; sourceTree = "<group>"; };
 		71E4EA5E1E6CDE7400CFF95A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71ECAC4B1E89AACF0097F27A /* ConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
+		71ECAC4D1E89B7040097F27A /* ConversationsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
+		71ECAC4F1E89D9D70097F27A /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +89,18 @@
 		71E4EA431E6CDE7400CFF95A /* tink_chat */ = {
 			isa = PBXGroup;
 			children = (
+				712EA5641E8B020600547C7F /* Main.storyboard */,
 				71E4EA441E6CDE7400CFF95A /* AppDelegate.swift */,
 				71E4EA461E6CDE7400CFF95A /* ViewController.swift */,
-				71E4EA481E6CDE7400CFF95A /* Main.storyboard */,
 				71E4EA4E1E6CDE7400CFF95A /* Assets.xcassets */,
 				71E4EA501E6CDE7400CFF95A /* LaunchScreen.storyboard */,
 				71E4EA531E6CDE7400CFF95A /* Info.plist */,
 				71E4EA4B1E6CDE7400CFF95A /* tink_chat.xcdatamodeld */,
+				71ECAC4B1E89AACF0097F27A /* ConversationCell.swift */,
+				71ECAC4D1E89B7040097F27A /* ConversationsListViewController.swift */,
+				71ECAC4F1E89D9D70097F27A /* CellData.swift */,
+				712EA5601E8AD27D00547C7F /* BubbleMessageCell.swift */,
+				712EA5621E8AD91500547C7F /* MessagesViewController.swift */,
 			);
 			path = tink_chat;
 			sourceTree = "<group>";
@@ -183,9 +198,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				712EA5651E8B020600547C7F /* Main.storyboard in Resources */,
 				71E4EA521E6CDE7400CFF95A /* LaunchScreen.storyboard in Resources */,
 				71E4EA4F1E6CDE7400CFF95A /* Assets.xcassets in Resources */,
-				71E4EA4A1E6CDE7400CFF95A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,8 +219,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E4EA4D1E6CDE7400CFF95A /* tink_chat.xcdatamodeld in Sources */,
+				71ECAC4E1E89B7040097F27A /* ConversationsListViewController.swift in Sources */,
 				71E4EA471E6CDE7400CFF95A /* ViewController.swift in Sources */,
 				71E4EA451E6CDE7400CFF95A /* AppDelegate.swift in Sources */,
+				71ECAC4C1E89AACF0097F27A /* ConversationCell.swift in Sources */,
+				71ECAC501E89D9D70097F27A /* CellData.swift in Sources */,
+				712EA5631E8AD91500547C7F /* MessagesViewController.swift in Sources */,
+				712EA5611E8AD27D00547C7F /* BubbleMessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,14 +248,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		71E4EA481E6CDE7400CFF95A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				71E4EA491E6CDE7400CFF95A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		71E4EA501E6CDE7400CFF95A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

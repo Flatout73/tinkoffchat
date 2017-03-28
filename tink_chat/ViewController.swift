@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBAction func tapOnImsge(_ sender: Any) {
         
-        var myActionSheet = UIAlertController(title: "Действие", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let myActionSheet = UIAlertController(title: "Действие", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let add = UIAlertAction(title: "Добавить фото", style: UIAlertActionStyle.default) { (ACTION) in
             if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
@@ -141,6 +141,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         super.touchesBegan(touches, with: event)
         
     }
+    
+    @IBAction func closeView(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 
