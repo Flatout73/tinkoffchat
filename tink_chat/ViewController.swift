@@ -64,7 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         self.present(myActionSheet, animated: true, completion: nil)
         
-        didChanges()
+        didChanges(yes: true)
         
     }
     
@@ -74,6 +74,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             avatar.clipsToBounds = true
             
             dismiss(animated: true, completion: nil)
+    }
+    
+    func selectorChanged() {
+        didChanges(yes: true)
     }
     
     override func viewDidLoad() {
@@ -89,10 +93,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         progress.hidesWhenStopped = true
         
-        GCDButton.isEnabled = false
-        OperationButton.isEnabled = false
+        didChanges(yes: false)
         
-        nameTextField.addTarget(self, action: #selector(didChanges), for: .editingChanged)
+        nameTextField.addTarget(self, action: #selector(selectorChanged), for: .editingChanged)
         aboutMe.delegate = self
         
         progress.startAnimating()
@@ -102,9 +105,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         queue.async {
             
             var textName = ""
+            var text = ""
+            var color: UIColor?
             if let plist = Plist(name: "data") {
-                var dict = plist.getValuesInPlistFile()
+                let dict = plist.getValuesInPlistFile()
                 textName = dict?[self.Name] as! String
+                text = dict?[self.Text] as! String
+                let col = dict?["Color"] as? Int
+//                let green = dict?["Green"] as? CGFloat
+//                let blue = dict?["Blue"] as? CGFloat
+                if let r = col {
+                    color = UIColor(rgb: r)
+                }
             }
             
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -118,51 +130,29 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 self.nameTextField.text = textName
                 self.avatar.image = image
                 self.progress.stopAnimating()
+                self.aboutMe.text = text
+                self.colorText.textColor = color
             }
         }
     }
     
-    func didChanges() {
-        GCDButton.isEnabled = true
-        OperationButton.isEnabled = true
+    func didChanges(yes: Bool = true) {
+        if(yes) {
+            GCDButton.isEnabled = true
+            OperationButton.isEnabled = true
+            GCDButton.backgroundColor = UIColor.yellow
+            OperationButton.backgroundColor = UIColor.yellow
+        } else {
+            GCDButton.isEnabled = false
+            OperationButton.isEnabled = false
+            GCDButton.backgroundColor = UIColor.gray
+            OperationButton.backgroundColor = UIColor.gray
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        didChanges()
+        didChanges(yes: true)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("\(#function)")
-        
-        for subviews in view.subviews {
-            print(subviews.description)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("\(#function)")
-        
-        for subviews in view.subviews {
-            print(subviews.description)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        print("\(#function)")
-        
-        for subviews in view.subviews {
-            print(subviews.description)
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("\(#function)")
-        
-        for subviews in view.subviews {
-            print(subviews.description)
-        }
-    }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -213,26 +203,65 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 //            data.set
 //        }
         
-        let queue = DispatchQueue.global(qos: .utility)
-        
         progress.startAnimating()
         GCDButton.isEnabled = false
         OperationButton.isEnabled = false
-        queue.async {
-            self.saveDate()
-            DispatchQueue.main.async {
-                self.progress.stopAnimating()
-                self.GCDButton.isEnabled = true
-                self.OperationButton.isEnabled = true
-            }
-        }
+        
+//        let queue = DispatchQueue.global(qos: .utility)
+//        queue.async {
+//            self.saveDate()
+//            DispatchQueue.main.async {
+//                self.progress.stopAnimating()
+//                
+//                self.didChanges(yes: false)
+//                
+//                let alert = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
+//                
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//        }
+        
+        let gcd = GCDataManager()
+        gcd.save(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
     }
 
     @IBAction func saveOperations(_ sender: UIButton) {
-        
+        let oper = OperationDataManager()
+        oper.saveInfo(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
     }
+    
+    func completeSave(error: String?) {
+        
+        self.progress.stopAnimating()
+        
+        if let err = error {
+            
+            let alert = UIAlertController(title: "Не удалось сохранить данные", message: err, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Повторить", style: .default) { [weak self]
+                (ACTION) in
+                if let this = self {
+                let gcd = GCDataManager()
+                gcd.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: this.colorText.textColor, complete: this.completeSave)
+                }
+            })
+            
+            self.present(alert, animated: true, completion: nil)
+        } else {
+        
+        self.didChanges(yes: false)
+        
+        let alert = UIAlertView(title:"Данные успешно сохранены", message:nil, delegate:nil, cancelButtonTitle:"OK")
+        
+        alert.show()
+        }
+    }
+    
     @IBAction func changeColor(_ sender: UIButton) {
         colorText.textColor = sender.backgroundColor
+        didChanges(yes: true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
