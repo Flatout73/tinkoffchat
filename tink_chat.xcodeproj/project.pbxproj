@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		710BB7C61E93118C0027FD99 /* Plist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710BB7C51E93118C0027FD99 /* Plist.swift */; };
+		710BB7C81E9319BD0027FD99 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 710BB7C71E9319BD0027FD99 /* data.plist */; };
 		712EA5611E8AD27D00547C7F /* BubbleMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712EA5601E8AD27D00547C7F /* BubbleMessageCell.swift */; };
 		712EA5631E8AD91500547C7F /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712EA5621E8AD91500547C7F /* MessagesViewController.swift */; };
 		712EA5651E8B020600547C7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 712EA5641E8B020600547C7F /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		710BB7C51E93118C0027FD99 /* Plist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plist.swift; sourceTree = "<group>"; };
+		710BB7C71E9319BD0027FD99 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		712EA5601E8AD27D00547C7F /* BubbleMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleMessageCell.swift; sourceTree = "<group>"; };
 		712EA5621E8AD91500547C7F /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		712EA5641E8B020600547C7F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 				71ECAC4F1E89D9D70097F27A /* CellData.swift */,
 				712EA5601E8AD27D00547C7F /* BubbleMessageCell.swift */,
 				712EA5621E8AD91500547C7F /* MessagesViewController.swift */,
+				710BB7C51E93118C0027FD99 /* Plist.swift */,
+				710BB7C71E9319BD0027FD99 /* data.plist */,
 			);
 			path = tink_chat;
 			sourceTree = "<group>";
@@ -200,6 +206,7 @@
 			files = (
 				712EA5651E8B020600547C7F /* Main.storyboard in Resources */,
 				71E4EA521E6CDE7400CFF95A /* LaunchScreen.storyboard in Resources */,
+				710BB7C81E9319BD0027FD99 /* data.plist in Resources */,
 				71E4EA4F1E6CDE7400CFF95A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,6 +228,7 @@
 				71E4EA4D1E6CDE7400CFF95A /* tink_chat.xcdatamodeld in Sources */,
 				71ECAC4E1E89B7040097F27A /* ConversationsListViewController.swift in Sources */,
 				71E4EA471E6CDE7400CFF95A /* ViewController.swift in Sources */,
+				710BB7C61E93118C0027FD99 /* Plist.swift in Sources */,
 				71E4EA451E6CDE7400CFF95A /* AppDelegate.swift in Sources */,
 				71ECAC4C1E89AACF0097F27A /* ConversationCell.swift in Sources */,
 				71ECAC501E89D9D70097F27A /* CellData.swift in Sources */,

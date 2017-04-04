@@ -8,11 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     @IBOutlet weak var colorText: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var aboutMe: UITextView!
+    
+    @IBOutlet weak var progress: UIActivityIndicatorView!
+    
+    @IBOutlet weak var GCDButton: UIButton!
+    @IBOutlet weak var OperationButton: UIButton!
+    
+    let Name = "Name"
+    let Text =  "Text"
+    let Color = "Color"
     
     @IBAction func tapOnImsge(_ sender: Any) {
         
@@ -54,6 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         self.present(myActionSheet, animated: true, completion: nil)
         
+        didChanges()
         
     }
     
@@ -75,6 +86,49 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
         avatar.isUserInteractionEnabled = true
         nameTextField.delegate = self
+        
+        progress.hidesWhenStopped = true
+        
+        GCDButton.isEnabled = false
+        OperationButton.isEnabled = false
+        
+        nameTextField.addTarget(self, action: #selector(didChanges), for: .editingChanged)
+        aboutMe.delegate = self
+        
+        progress.startAnimating()
+        
+        let queue = DispatchQueue.global(qos: .utility)
+        
+        queue.async {
+            
+            var textName = ""
+            if let plist = Plist(name: "data") {
+                var dict = plist.getValuesInPlistFile()
+                textName = dict?[self.Name] as! String
+            }
+            
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let filePath = documentsURL.appendingPathComponent("avatar.png").path
+            var image: UIImage?
+            if FileManager.default.fileExists(atPath: filePath) {
+                image = UIImage(contentsOfFile: filePath)
+            }
+            
+            DispatchQueue.main.async {
+                self.nameTextField.text = textName
+                self.avatar.image = image
+                self.progress.stopAnimating()
+            }
+        }
+    }
+    
+    func didChanges() {
+        GCDButton.isEnabled = true
+        OperationButton.isEnabled = true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        didChanges()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,11 +174,63 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             print(subviews.description)
         }
     }
-
-    @IBAction func save(_ sender: UIButton) {
-        print("Сохранение данных профиля")
+    
+    func saveDate() {
+        if let plist = Plist(name: "data") {
+            let dict = plist.getMutablePlistFile()!
+            dict[self.Name] = self.nameTextField.text
+            dict[self.Text] = self.aboutMe.text
+    
+            do {
+                try plist.addValuesToPlistFile(dictionary: dict)
+            } catch {
+                print(error)
+            }
+            print(plist.getValuesInPlistFile()!)
+        }
+        else {
+            print("Unable to get Plist")
+        }
+    
+        do {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let fileURL = documentsURL.appendingPathComponent("avatar.png")
+            if let pngImageData = UIImagePNGRepresentation(self.avatar.image!) {
+                try pngImageData.write(to: fileURL, options: .atomic)
+            }
+        } catch {
+            print(error)
+        }
     }
 
+    @IBAction func save(_ sender: UIButton) {
+        //print("Сохранение данных профиля")
+//        let file = "save.plist"
+//        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//            let path = dir.appendingPathComponent(file)
+//            //let fileManager = FileManager.default
+//            var data: NSMutableDictionary = NSMutableDictionary(contentsOfFile: path)
+//            data.set
+//        }
+        
+        let queue = DispatchQueue.global(qos: .utility)
+        
+        progress.startAnimating()
+        GCDButton.isEnabled = false
+        OperationButton.isEnabled = false
+        queue.async {
+            self.saveDate()
+            DispatchQueue.main.async {
+                self.progress.stopAnimating()
+                self.GCDButton.isEnabled = true
+                self.OperationButton.isEnabled = true
+            }
+        }
+    }
+
+    @IBAction func saveOperations(_ sender: UIButton) {
+        
+    }
     @IBAction func changeColor(_ sender: UIButton) {
         colorText.textColor = sender.backgroundColor
     }
