@@ -114,9 +114,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         self.avatar.image = avatar
         self.aboutMe.text = text
         
+        print(color?.toHexString())
         if let col = color {
+            print(col.toHexString())
             self.colorText.textColor = col
-            print(col.hash)
         }
         
         self.progress.stopAnimating()
@@ -180,37 +181,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
 
     @IBAction func save(_ sender: UIButton) {
-        //print("Сохранение данных профиля")
-//        let file = "save.plist"
-//        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-//            let path = dir.appendingPathComponent(file)
-//            //let fileManager = FileManager.default
-//            var data: NSMutableDictionary = NSMutableDictionary(contentsOfFile: path)
-//            data.set
-//        }
         
         progress.startAnimating()
         didChanges(yes:false)
-        
-//        let queue = DispatchQueue.global(qos: .utility)
-//        queue.async {
-//            self.saveDate()
-//            DispatchQueue.main.async {
-//                self.progress.stopAnimating()
-//                
-//                self.didChanges(yes: false)
-//                
-//                let alert = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
-//                
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
-//            }
-//        }
-        
-        //let gcd = GCDataManager()
+    
         gcd.save(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
         
-        print(colorText.textColor.hash)
+        print(colorText.textColor.toHexString())
     }
 
     @IBAction func saveOperations(_ sender: UIButton) {
