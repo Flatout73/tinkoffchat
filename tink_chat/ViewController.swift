@@ -24,6 +24,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     let Text =  "Text"
     let Color = "Color"
     
+    let gcd = GCDataManager()
+    lazy var oper = OperationDataManager()
+    
     @IBAction func tapOnImsge(_ sender: Any) {
         
         let myActionSheet = UIAlertController(title: "Действие", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -83,11 +86,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("\(#function)")
+        //print("\(#function)")
         
-        for subviews in view.subviews {
-            print(subviews.description)
-        }
+//        for subviews in view.subviews {
+//            print(subviews.description)
+//        }
         avatar.isUserInteractionEnabled = true
         nameTextField.delegate = self
         
@@ -99,41 +102,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         aboutMe.delegate = self
         
         progress.startAnimating()
+    
         
-        let queue = DispatchQueue.global(qos: .utility)
+        //gcd.read(complete: completeRead)
+        oper.readInfo(complete: completeRead)
         
-        queue.async {
-            
-            var textName = ""
-            var text = ""
-            var color: UIColor?
-            if let plist = Plist(name: "data") {
-                let dict = plist.getValuesInPlistFile()
-                textName = dict?[self.Name] as! String
-                text = dict?[self.Text] as! String
-                let col = dict?["Color"] as? Int
-//                let green = dict?["Green"] as? CGFloat
-//                let blue = dict?["Blue"] as? CGFloat
-                if let r = col {
-                    color = UIColor(rgb: r)
-                }
-            }
-            
-            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let filePath = documentsURL.appendingPathComponent("avatar.png").path
-            var image: UIImage?
-            if FileManager.default.fileExists(atPath: filePath) {
-                image = UIImage(contentsOfFile: filePath)
-            }
-            
-            DispatchQueue.main.async {
-                self.nameTextField.text = textName
-                self.avatar.image = image
-                self.progress.stopAnimating()
-                self.aboutMe.text = text
-                self.colorText.textColor = color
-            }
+    }
+    
+    func completeRead(_ name: String, _ text: String, _ avatar: UIImage, _ color: UIColor?) {
+        self.nameTextField.text = name
+        self.avatar.image = avatar
+        self.aboutMe.text = text
+        
+        if let col = color {
+            self.colorText.textColor = col
+            print(col.hash)
         }
+        
+        self.progress.stopAnimating()
     }
     
     func didChanges(yes: Bool = true) {
@@ -204,8 +190,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 //        }
         
         progress.startAnimating()
-        GCDButton.isEnabled = false
-        OperationButton.isEnabled = false
+        didChanges(yes:false)
         
 //        let queue = DispatchQueue.global(qos: .utility)
 //        queue.async {
@@ -222,12 +207,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 //            }
 //        }
         
-        let gcd = GCDataManager()
+        //let gcd = GCDataManager()
         gcd.save(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
+        
+        print(colorText.textColor.hash)
     }
 
     @IBAction func saveOperations(_ sender: UIButton) {
-        let oper = OperationDataManager()
+    
         oper.saveInfo(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
     }
     
@@ -243,8 +230,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             alert.addAction(UIAlertAction(title: "Повторить", style: .default) { [weak self]
                 (ACTION) in
                 if let this = self {
-                let gcd = GCDataManager()
-                gcd.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: this.colorText.textColor, complete: this.completeSave)
+                //let gcd = GCDataManager()
+                this.gcd.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: this.colorText.textColor, complete: this.completeSave)
                 }
             })
             

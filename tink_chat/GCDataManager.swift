@@ -1,3 +1,4 @@
+
 //
 //  GCDataManager.swift
 //  tink_chat
@@ -12,15 +13,19 @@ class GCDataManager {
     
     var err: String? = nil
     
+    let Name = "Name"
+    let Text =  "Text"
+    let Color = "Color"
+    
     func save(name:String, text: String, avatar: UIImage, color: UIColor, complete: @escaping (String?) -> Void) {
         
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
             if let plist = Plist(name: "data") {
                 let dict = plist.getMutablePlistFile()!
-                dict["Name"] = name
-                dict["Text"] = text
-                dict["Color"] = color.hashValue
+                dict[self.Name] = name
+                dict[self.Text] = text
+                dict[self.Color] = color.toHexString()
                 
                 do {
                     try plist.addValuesToPlistFile(dictionary: dict)
@@ -47,6 +52,38 @@ class GCDataManager {
             }
             DispatchQueue.main.async {
                 complete(self.err)
+            }
+        }
+    }
+    
+    func read(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage, _ color: UIColor?) -> Void) {
+        
+        let queue = DispatchQueue.global(qos: .utility)
+        queue.async {
+            
+            var textName = ""
+            var text = ""
+            var color: UIColor?
+            if let plist = Plist(name: "data") {
+                let dict = plist.getValuesInPlistFile()
+                textName = dict?[self.Name] as! String
+                text = dict?[self.Text] as! String
+                let col = dict?[self.Color] as? Int
+                if let r = col {
+                    color = UIColor(rgb: r)
+                }
+            }
+            
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let filePath = documentsURL.appendingPathComponent("avatar.png").path
+            
+            var image: UIImage?
+            if FileManager.default.fileExists(atPath: filePath) {
+                image = UIImage(contentsOfFile: filePath)
+            }
+            
+            DispatchQueue.main.async {
+                complete(textName, text, image!, color)
             }
         }
     }
