@@ -56,7 +56,7 @@ class GCDataManager {
         }
     }
     
-    func read(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage, _ color: UIColor?) -> Void) {
+    func read(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor?) -> Void) {
         
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
@@ -83,7 +83,7 @@ class GCDataManager {
             }
             
             DispatchQueue.main.async {
-                complete(textName, text, image!, color)
+                complete(textName, text, image, color)
             }
         }
     }

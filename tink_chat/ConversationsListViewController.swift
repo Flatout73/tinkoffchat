@@ -4,7 +4,12 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     
     @IBOutlet weak var tableView: UITableView!
     
-    var messages: [ConversationCellConfiguration] = []
+    var messages: [String: ConversationCellConfiguration] = [:]
+    
+    let multipeer = MultipeerCommunicator()
+    let manager = CommunicatorManager()
+    
+    var userID: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,14 +18,32 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm"
-        messages.append(CellData(n: "Leo", m: "Hello, watsup )))))))))))))))))))))))))))))))))))))))))))))heh", d: formatter.date(from: "20.03.2017 12:10")!, h: true, o: true))
-        messages.append(CellData(n: "Tom", m: "Hi", d: Date(), h: false, o: true))
-        messages.append(CellData(n: "Jerry", m: nil, d: Date(), h: false, o: false))
-        messages.append(CellData(n: "Kate", m: "No", d: Date(), h: false, o: false))
-        messages.append(CellData(n: "Niko", m: "Hello", d: formatter.date(from: "27.03.2017 12:10")!, h: true, o: false))
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+//        messages.append(CellData(n: "Leo", m: "Hello, watsup )))))))))))))))))))))))))))))))))))))))))))))heh", d: formatter.date(from: "20.03.2017 12:10")!, h: true, o: true))
+//        messages.append(CellData(n: "Tom", m: "Hi", d: Date(), h: false, o: true))
+//        messages.append(CellData(n: "Jerry", m: nil, d: Date(), h: false, o: false))
+//        messages.append(CellData(n: "Kate", m: "No", d: Date(), h: false, o: false))
+//        messages.append(CellData(n: "Niko", m: "Hello", d: formatter.date(from: "27.03.2017 12:10")!, h: true, o: false))
         
+        manager.add(controller: self)
+        multipeer.delegate = manager
+    }
+    
+    func addUser(name: String, ID: String, message: String?, date: Date = Date(), unread: Bool = false, online: Bool = true) {
+        
+        userID = ID
+        messages[ID] = CellData(n: name, m: message, d: date, h: unread, o: online)
+        DispatchQueue.main.async{
+            self.tableView.reloadData()
+        }
+    }
+    
+    func deleteUser(peerID: String) {
+        messages.removeValue(forKey: peerID)
+        DispatchQueue.main.async{
+            self.tableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,7 +56,11 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        if(section == 0) {
+            return messages.count
+        } else {
+            return 0; //поменять здесь когда появяится история
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -45,9 +72,12 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //и здесь
         let cell = tableView.dequeueReusableCell(withIdentifier: "onlineID", for: indexPath) as? ConversationCell
         if let c = cell {
-            let data = messages[indexPath.row]
+            let data = ([ConversationCellConfiguration](messages.values))[indexPath.row]
+            //let data = messages[indexPath.row]
             c.name = data.name
             c.message = data.message
             c.date = data.date
@@ -70,7 +100,10 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         let toViewController = segue.destination as? MessagesViewController
         
         if let to = toViewController {
-            to.titleTo = messages[tapped!].name
+            to.titleTo = [ConversationCellConfiguration](messages.values)[tapped!].name
+            manager.add(messagesController: to)
+            to.multipeer = multipeer
+            to.userID = userID
         }
     }
     

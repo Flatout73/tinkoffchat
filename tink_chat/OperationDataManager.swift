@@ -24,12 +24,12 @@ class OperationDataManager {
         operations.addOperation(saver)
     }
     
-    func readInfo(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage, _ color: UIColor?) -> Void) {
+    func readInfo(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor?) -> Void) {
         
         let reader = ReadOperation()
         reader.completionBlock = {
             DispatchQueue.main.async {
-                complete(reader.textName, reader.text, reader.image!, reader.color)
+                complete(reader.textName, reader.text, reader.image, reader.color)
             }
         }
         

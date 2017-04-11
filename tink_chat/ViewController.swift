@@ -106,12 +106,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         //gcd.read(complete: completeRead)
         oper.readInfo(complete: completeRead)
-        
     }
     
-    func completeRead(_ name: String, _ text: String, _ avatar: UIImage, _ color: UIColor?) {
+    func completeRead(_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor?) {
         self.nameTextField.text = name
-        self.avatar.image = avatar
+        if let picture = avatar {
+            self.avatar.image = picture
+        }
         self.aboutMe.text = text
         
         print(color?.toHexString())

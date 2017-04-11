@@ -37,14 +37,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         super.setSelected(selected, animated: animated)
 
         nameLabel.text = name
-        if let m = message {
-            messageLabel.text = m
-            messageLabel.font = UIFont.systemFont(ofSize:17)
-        } else {
-            messageLabel.text = "No messages yet"
-            messageLabel.font = UIFont(name: "Optima", size: 17)
-            
-        }
+        
         let formatter = DateFormatter()
         if((Date().timeIntervalSince1970 - (date?.timeIntervalSince1970)!) < 86400) {
             formatter.dateFormat = "HH:mm"
@@ -62,6 +55,15 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         
         if(hasUnreadMessages) {
             messageLabel.font = UIFont.boldSystemFont(ofSize: messageLabel.font.pointSize)
+        }
+        
+        if let m = message {
+            messageLabel.text = m
+            messageLabel.font = UIFont.systemFont(ofSize:17)
+        } else {
+            messageLabel.text = "No messages yet"
+            messageLabel.font = UIFont(name: "Optima", size: 17)
+            
         }
     }
 
