@@ -33,7 +33,10 @@ class CommunicatorManager : CommunicatorDelegate {
     }
     
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
-        messagesController?.didReceiveMessage(text: text)
+        if (messagesController != nil){
+            messagesController?.didReceiveMessage(text: text)
+        }
+        conversationController?.didRecieveMessage(text: text, userID: fromUser)
     }
 
     func failedToStartAdvertising(error: Error) {

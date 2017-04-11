@@ -66,5 +66,5 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
             
         }
     }
-
+    
 }

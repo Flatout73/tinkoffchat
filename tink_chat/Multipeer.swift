@@ -21,6 +21,7 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
     var online = false
     weak var delegate: CommunicatorDelegate?
 
+    var myName = "Leon"
     
     private let serviceType = "tinkoff-chat"
     
@@ -38,12 +39,13 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
     var sessions = [String: MCSession]()
     
     override init() {
-        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName" : "Leon"], serviceType: serviceType)
+        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName" : myName], serviceType: serviceType)
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
         
         super.init()
         
         print("init")
+        sessions.removeAll()
         self.serviceAdvertiser.delegate = self
         self.serviceAdvertiser.startAdvertisingPeer()
         
@@ -63,7 +65,15 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         
-        //delegate?.didFoundUser(userID: peerID.displayName, userName: "kek")
+        var userName: String?
+        do{
+            if let c = context{
+            userName = (try JSONSerialization.jsonObject(with: c, options: []) as! [String: String])["userName"]
+            }
+        } catch{
+            print(error)
+        }
+        delegate?.didFoundUser(userID: peerID.displayName, userName: userName)
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
         session.delegate = self
         
@@ -77,8 +87,6 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         
         
     }
-    
-    
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("lost")
         delegate?.didLostUser(userID: peerID.displayName)
@@ -101,14 +109,24 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
             delegate?.didFoundUser(userID: peerID.displayName, userName: info?["userName"])
             let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
             session.delegate = self
-            browser.invitePeer(peerID, to: session, withContext: nil, timeout: 30)
+            let context = "{\"userName\": \"\(myName)\"}"
+            browser.invitePeer(peerID, to: session, withContext: context.data(using: .utf8), timeout: 30)
             
             sessions[peerID.displayName] = session
         }
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print("didChange")
+        if(state == .notConnected) {
+            print("Sessions lost")
+            sessions[peerID.displayName] = nil
+            delegate?.didLostUser(userID: peerID.displayName)
+            
+            session.cancelConnectPeer(peerID)
+        } else if(state == .connected) {
+            //sessions[peerID.displayName] = session
+            print("Found again!")
+        }
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
@@ -118,9 +136,13 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         
         print(res)
         do {
-            let d = try JSONSerialization.jsonObject(with: data, options: []) as! [String: String]
-            print(d)
-            delegate?.didReceiveMessage(text: d["text"]!, fromUser: peerID.displayName, toUser: myPeerId.displayName)
+            let ser = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: String]
+            print(ser)
+            if let d = ser{
+                if let message = d["text"]{
+                    delegate?.didReceiveMessage(text: message, fromUser: peerID.displayName, toUser: myPeerId.displayName)
+                }
+            }
         } catch{
             print(error)
         }
@@ -149,8 +171,12 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
             let message = "{\"eventType\":\"TextMessage\", \"messageId\":\"\(self.generateMessageId())\", \"text\": \"\(string)\"}"
             print(userSession.connectedPeers)
             try userSession.send(message.data(using: .utf8)!, toPeers: userSession.connectedPeers, with: .reliable)
+        
+            completionHandler?(true, nil)
+        
         }
         } catch {
+            completionHandler?(false, error)
             print(error)
         }
     }

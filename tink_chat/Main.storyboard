@@ -48,7 +48,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="shH-Lf-F4c" id="vNC-q7-qqF">
-                                            <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWz-ch-Peq">
@@ -212,12 +212,18 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGM-c6-wxn">
-                                <rect key="frame" x="348" y="698" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="358" y="698" width="36" height="30"/>
+                                <state key="normal" title="Send"/>
                                 <connections>
                                     <action selector="sendMessage:" destination="bCP-XM-sI8" eventType="touchUpInside" id="Dyx-d3-iTc"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Fo-tw-ZgF">
+                                <rect key="frame" x="20" y="696" width="320" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -225,12 +231,18 @@
                             <constraint firstItem="NGM-c6-wxn" firstAttribute="trailing" secondItem="Qav-OK-pI4" secondAttribute="trailingMargin" id="6kq-qV-F3t"/>
                             <constraint firstItem="S1c-KJ-eRX" firstAttribute="top" secondItem="Qav-OK-pI4" secondAttribute="topMargin" constant="8" id="DEG-de-yE6"/>
                             <constraint firstItem="OmW-8V-MfO" firstAttribute="top" secondItem="NGM-c6-wxn" secondAttribute="bottom" constant="8" id="KN1-sp-MJd"/>
+                            <constraint firstItem="OmW-8V-MfO" firstAttribute="top" secondItem="5Fo-tw-ZgF" secondAttribute="bottom" constant="10" id="Q2d-33-6Wh"/>
                             <constraint firstItem="S1c-KJ-eRX" firstAttribute="trailing" secondItem="Qav-OK-pI4" secondAttribute="trailingMargin" id="UXR-W2-QEB"/>
                             <constraint firstItem="NGM-c6-wxn" firstAttribute="top" secondItem="S1c-KJ-eRX" secondAttribute="bottom" constant="10" id="fgJ-eK-lt9"/>
+                            <constraint firstItem="5Fo-tw-ZgF" firstAttribute="top" secondItem="S1c-KJ-eRX" secondAttribute="bottom" constant="8" id="j0V-Q5-Wq4"/>
+                            <constraint firstItem="NGM-c6-wxn" firstAttribute="leading" secondItem="5Fo-tw-ZgF" secondAttribute="trailing" constant="18" id="ljg-Xb-hKn"/>
+                            <constraint firstItem="5Fo-tw-ZgF" firstAttribute="leading" secondItem="S1c-KJ-eRX" secondAttribute="leading" id="o0C-NW-TFD"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="sendButton" destination="NGM-c6-wxn" id="5qW-wU-8vf"/>
                         <outlet property="table" destination="S1c-KJ-eRX" id="oeN-97-V30"/>
+                        <outlet property="textBox" destination="5Fo-tw-ZgF" id="8wd-B6-0wi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OVS-pa-xfr" userLabel="First Responder" sceneMemberID="firstResponder"/>
