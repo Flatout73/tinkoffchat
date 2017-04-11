@@ -80,9 +80,16 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         //newMessages[userID]?.append(text)
         
         if let mTo = messagesToMe[userID] {
-            let lastKey = [Int](mTo.keys).last
-        
-            messagesToMe[userID] = [lastKey! + 1 : text]
+            if(!mTo.isEmpty){
+                let lastKey = [Int](mTo.keys).last
+                if let key = lastKey {
+                    messagesToMe[userID] = [key + 1 : text]
+                }
+                
+            } else {
+                messagesToMe[userID] = [0 : text]
+            }
+            
         } else {
             messagesToMe[userID] = [0 : text]
         }
@@ -95,6 +102,9 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     func saveMessages(userID: String, fromMe: [Int:String], toMe: [Int:String]) {
         messagesToMe[userID] = toMe
         messagesFromMe[userID] = fromMe
+        
+        messages[userID]?.hasUnreadMessages = false
+        history[userID]?.hasUnreadMessages = false
         
         manager.messagesController = nil
     }
