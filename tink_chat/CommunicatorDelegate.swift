@@ -59,7 +59,7 @@ class CommunicatorManager : CommunicatorDelegate {
         if let u = userName{
             conversationController?.addUser(name: u, ID:userID, message: nil)
         } else {
-            conversationController?.addUser(name: "pff", ID: userID, message: nil)
+            conversationController?.addUser(name: "No name", ID: userID, message: nil)
         }
     }
 
