@@ -92,10 +92,6 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         print("found")
         print(info as Any)
         
-//        let alert = UIAlertView(title:"Found", message:nil, delegate:nil, cancelButtonTitle:"OK")
-//        
-//        alert.show()
-        
         if(sessions[peerID.displayName] == nil) {
             delegate?.didFoundUser(userID: peerID.displayName, userName: info?["userName"])
             let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
@@ -130,7 +126,11 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         if let d = ser{
             if let message = d["text"]{
                 delegate?.didReceiveMessage(text: message, fromUser: peerID.displayName, toUser: myPeerId.displayName)
+            } else {
+                print("Нет поля text!")
             }
+        } else {
+            print("Ошибка при чтении сообщения")
         }
     }
     

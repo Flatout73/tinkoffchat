@@ -118,7 +118,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         if(section == 0) {
             return onlineUsers.count
         } else {
-            return history.count; //поменять здесь когда появяится история
+            return history.count;
         }
     }
     
@@ -131,9 +131,6 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        //и здесь
         let cell = tableView.dequeueReusableCell(withIdentifier: "onlineID", for: indexPath) as? ConversationCell
         if let c = cell {
             var data: IConversationCellConfiguration
@@ -153,6 +150,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         
         return cell!
     }
+    
     
     var tapped: IndexPath?
     
@@ -191,12 +189,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
                 
             }
             conversationsModel.prepare(for: to)
-            
-            //manager.add(messagesController: to)
-            //to.multipeer = multipeer
-            //to.userID = userID
             to.delegate = self
-            //to.messagesFromMe = messagesFromMe[userID]
         }
     }
     

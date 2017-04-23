@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-protocol CommunicatorSender : class {
+protocol ICommunicatorSender : class {
     func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?)
 }
 
-class CommunicatorManager : ICommunicatorDelegate, CommunicatorSender {
+class CommunicatorManager : ICommunicatorDelegate, ICommunicatorSender {
     
     let multipeer = MultipeerCommunicator()
     

@@ -16,7 +16,7 @@ protocol IMessagesModel: class {
 class MessagesModel: IMessagesModel {
     weak var delegate: IMessagesModelDelegate?
 
-    weak var manager: CommunicatorSender?
+    weak var manager: ICommunicatorSender?
     
     func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
         manager?.send(message: message, to: userID, completionHandler: completionHandler)

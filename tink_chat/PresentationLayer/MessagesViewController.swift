@@ -14,6 +14,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     var messagesFromMe: [Int: String] = [:]
     var messagesToMe: [Int: String] = [:]
     
+    //это нужно для отображения в таблице
     var countMessages = 0
     
     var countToMe: Int = 0
@@ -30,8 +31,6 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var textBox: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    
-    //var multipeer: MultipeerCommunicator?
     
     var titleTo: String?
     
@@ -108,7 +107,6 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func sendMessage(_ sender: UIButton) {
         
         if let t = textBox.text{
-            //multipeer?.sendMessage(string: t, to: userID!, completionHandler: completeSend)
             if let id = userID {
                 messagesModel?.send(message: t, to: id, completionHandler: completeSend)
             } else {
