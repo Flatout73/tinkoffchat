@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CellData: ConversationCellConfiguration {
+class CellData: IConversationCellConfiguration {
     var name: String?
     var message: String?
     var date: Date?

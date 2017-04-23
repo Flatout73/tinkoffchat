@@ -9,26 +9,26 @@
 import Foundation
 import UIKit
 
-protocol CommunicatorDelegate : class {
-    func didFoundUser(userID: String, userName: String?)
-    func didLostUser(userID: String)
-    
-    func failedToStartBrowsingForUsers(error: Error)
-    func failedToStartAdvertising(error: Error)
-    
-    func didReceiveMessage(text: String, fromUser: String, toUser: String)
+protocol CommunicatorSender : class {
+    func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?)
 }
 
-class CommunicatorManager : CommunicatorDelegate {
+class CommunicatorManager : ICommunicatorDelegate, CommunicatorSender {
     
-    var conversationController: ConversationsListViewController? = nil
-    var messagesController: MessagesViewController?
+    let multipeer = MultipeerCommunicator()
     
-    func add(controller: ConversationsListViewController) {
+    var conversationController: IConversationsModel? = nil
+    var messagesController: IMessagesModel?
+    
+    init() {
+        multipeer.delegate = self
+    }
+    
+    func add(controller: IConversationsModel) {
         conversationController = controller
     }
     
-    func add(messagesController: MessagesViewController) {
+    func add(messagesController: IMessagesModel) {
         self.messagesController = messagesController
     }
     
@@ -57,10 +57,14 @@ class CommunicatorManager : CommunicatorDelegate {
 
     func didFoundUser(userID: String, userName: String?) {
         if let u = userName{
-            conversationController?.addUser(name: u, ID:userID, message: nil)
+            conversationController?.addUser(name: u, ID:userID)
         } else {
-            conversationController?.addUser(name: "No name", ID: userID, message: nil)
+            conversationController?.addUser(name: "No name", ID: userID)
         }
+    }
+    
+    func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
+        multipeer.sendMessage(string: message, to: userID, completionHandler: completionHandler)
     }
 
     

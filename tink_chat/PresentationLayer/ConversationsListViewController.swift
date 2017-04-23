@@ -4,20 +4,17 @@ protocol SafeMessages {
     func saveMessages(userID: String, fromMe: [Int:String], toMe: [Int:String])
 }
 
-class ConversationsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SafeMessages {
+class ConversationsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SafeMessages, IConversationsModelDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var messages: [String: ConversationCellConfiguration] = [:]
-    var history: [String: ConversationCellConfiguration] = [:]
+    var onlineUsers: [String: IConversationCellConfiguration] = [:]
+    var history: [String: IConversationCellConfiguration] = [:]
     
     var messagesToMe: [String: [Int:String]] = [:] //from 'key' to me
     var messagesFromMe: [String: [Int:String]] = [:] //from me to 'key'
     
-    //var newMessages[String: [String]] = [:]
-    
-    let multipeer = MultipeerCommunicator()
-    let manager = CommunicatorManager()
+    let conversationsModel = ConversationsModel()
     
     var userID: String? = nil
     
@@ -28,6 +25,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
+        //данные для примера
 //        let formatter = DateFormatter()
 //        formatter.dateFormat = "dd.MM.yyyy HH:mm"
 //        messages.append(CellData(n: "Leo", m: "Hello, watsup )))))))))))))))))))))))))))))))))))))))))))))heh", d: formatter.date(from: "20.03.2017 12:10")!, h: true, o: true))
@@ -36,42 +34,41 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 //        messages.append(CellData(n: "Kate", m: "No", d: Date(), h: false, o: false))
 //        messages.append(CellData(n: "Niko", m: "Hello", d: formatter.date(from: "27.03.2017 12:10")!, h: true, o: false))
         
-        //messages.removeAll()
-        
-        manager.add(controller: self)
-        multipeer.delegate = manager
+        conversationsModel.delegate = self
     }
     
     func addUser(name: String, ID: String, message: String?, date: Date = Date(), unread: Bool = false, online: Bool = true) {
         
         userID = ID
         if(history[ID] == nil) {
-            messages[ID] = CellData(n: name, m: message, d: date, h: unread, o: online)
+            onlineUsers[ID] = CellData(n: name, m: message, d: date, h: unread, o: online)
         } else {
-            messages[ID] = history[ID]
+            onlineUsers[ID] = history[ID]
             history.removeValue(forKey: ID)
         }
         
-        messages[ID]?.online = true
+        onlineUsers[ID]?.online = true
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
     }
     
     func deleteUser(peerID: String) {
-        history[peerID] = messages[peerID]
-        history[peerID]?.online = false
-        messages.removeValue(forKey: peerID)
-        DispatchQueue.main.async{
-            self.tableView.reloadData()
+        if(onlineUsers[peerID] != nil) {
+            history[peerID] = onlineUsers[peerID]
+            history[peerID]?.online = false
+            onlineUsers.removeValue(forKey: peerID)
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
         }
     }
     
     func didRecieveMessage(text: String, userID: String) {
-        if(messages[userID] != nil) {
-            messages[userID]!.message = text
-            messages[userID]!.hasUnreadMessages = true
-            messages[userID]!.date = Date()
+        if(onlineUsers[userID] != nil) {
+            onlineUsers[userID]!.message = text
+            onlineUsers[userID]!.hasUnreadMessages = true
+            onlineUsers[userID]!.date = Date()
         } else {
             history[userID]?.message = text
             history[userID]?.hasUnreadMessages = true
@@ -103,10 +100,9 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         messagesToMe[userID] = toMe
         messagesFromMe[userID] = fromMe
         
-        messages[userID]?.hasUnreadMessages = false
+        onlineUsers[userID]?.hasUnreadMessages = false
         history[userID]?.hasUnreadMessages = false
-        
-        manager.messagesController = nil
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -120,7 +116,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
-            return messages.count
+            return onlineUsers.count
         } else {
             return history.count; //поменять здесь когда появяится история
         }
@@ -140,11 +136,11 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         //и здесь
         let cell = tableView.dequeueReusableCell(withIdentifier: "onlineID", for: indexPath) as? ConversationCell
         if let c = cell {
-            var data: ConversationCellConfiguration
+            var data: IConversationCellConfiguration
             if(indexPath.section == 0){
-                data = ([ConversationCellConfiguration](messages.values))[indexPath.row]
+                data = ([IConversationCellConfiguration](onlineUsers.values))[indexPath.row]
             } else {
-                data = ([ConversationCellConfiguration](history.values))[indexPath.row]
+                data = ([IConversationCellConfiguration](history.values))[indexPath.row]
             }
             //let data = messages[indexPath.row]
             c.name = data.name
@@ -171,8 +167,8 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         
         if let to = toViewController {
             if(tapped!.section == 0) {
-                to.titleTo = [ConversationCellConfiguration](messages.values)[tapped!.row].name
-                let id = [String](messages.keys)[tapped!.row]
+                to.titleTo = [IConversationCellConfiguration](onlineUsers.values)[tapped!.row].name
+                let id = [String](onlineUsers.keys)[tapped!.row]
                 to.userID = id
                 to.history = false
                 if let mFrom = messagesFromMe[id]{
@@ -182,7 +178,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
                     to.messagesToMe = mTo
                 }
             } else {
-                to.titleTo = [ConversationCellConfiguration](history.values)[tapped!.row].name
+                to.titleTo = [IConversationCellConfiguration](history.values)[tapped!.row].name
                 let id = [String](history.keys)[tapped!.row]
                 to.userID = id
                 to.history = true
@@ -194,8 +190,10 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
                 }
                 
             }
-            manager.add(messagesController: to)
-            to.multipeer = multipeer
+            conversationsModel.prepare(for: to)
+            
+            //manager.add(messagesController: to)
+            //to.multipeer = multipeer
             //to.userID = userID
             to.delegate = self
             //to.messagesFromMe = messagesFromMe[userID]

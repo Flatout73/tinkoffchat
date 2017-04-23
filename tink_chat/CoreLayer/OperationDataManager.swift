@@ -112,8 +112,9 @@ class ReadOperation: Operation {
                 textName = dict?[Name] as! String
                 text = dict?[Text] as! String
                 let col = dict?[self.Color] as? Int
-                print("Read: ", col)
+                
                 if let r = col {
+                    print("Read: ", r)
                     color = UIColor(rgb: r)
                 }
             }
