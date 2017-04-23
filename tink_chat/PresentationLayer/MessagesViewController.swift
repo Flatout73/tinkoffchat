@@ -59,8 +59,11 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         messagesToMe[countMessages] = text
         countMessages += 1
         
-        DispatchQueue.main.async {
-            self.table.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            if let this = self{
+                this.table.reloadData()
+                this.table.scrollToRow(at: IndexPath(row: 0, section: this.countMessages), at: .bottom, animated: true)
+            }
         }
     }
     override func didReceiveMemoryWarning() {
@@ -109,6 +112,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         if let t = textBox.text{
             if let id = userID {
                 messagesModel?.send(message: t, to: id, completionHandler: completeSend)
+                textBox.text = ""
             } else {
                 print("No userID")
             }
@@ -120,11 +124,14 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
             messagesFromMe[countMessages] = textBox.text
             countMessages += 1
             
-            DispatchQueue.main.async {
-                self.table.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                if let this = self{
+                    this.table.reloadData()
+                    this.table.scrollToRow(at: IndexPath(row: 0, section: this.countMessages - 1), at: .bottom, animated: true)
+                }
             }
         } else {
-            let alert = UIAlertView(title:"Ошибка при отправке сообщения", message:err?.localizedDescription, delegate:nil, cancelButtonTitle:"OK")
+            let alert = UIAlertView(title:"Соединение потеряно", message:err?.localizedDescription, delegate:nil, cancelButtonTitle:"OK")
             
             alert.show()
             

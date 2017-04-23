@@ -80,7 +80,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
             if(!mTo.isEmpty){
                 let lastKey = [Int](mTo.keys).last
                 if let key = lastKey {
-                    messagesToMe[userID] = [key + 1 : text]
+                    messagesToMe[userID]?[key + 1] =  text
                 }
                 
             } else {
