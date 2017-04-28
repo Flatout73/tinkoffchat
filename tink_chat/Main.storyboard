@@ -137,10 +137,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqY-rB-eCS">
-                                                    <rect key="frame" x="8" y="4" width="57.666666666666671" height="36.333333333333336"/>
+                                                    <rect key="frame" x="8" y="4" width="58" height="36.666666666666664"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un9-SM-Ruq">
-                                                            <rect key="frame" x="8" y="8" width="41.666666666666664" height="20.333333333333336"/>
+                                                            <rect key="frame" x="8" y="8" width="42" height="20.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -176,10 +176,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJP-8m-s9F">
-                                                    <rect key="frame" x="308.33333333333326" y="4" width="57.666666666666686" height="36"/>
+                                                    <rect key="frame" x="308" y="4" width="58" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgV-w9-fLV">
-                                                            <rect key="frame" x="8" y="8" width="41.666666666666686" height="20"/>
+                                                            <rect key="frame" x="8" y="8" width="42" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -266,7 +266,7 @@
         <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="tink_chat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ProfileViewController" customModule="tink_chat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -341,21 +341,21 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gd-AQ-0KW">
-                                <rect key="frame" x="95" y="648" width="74" height="30"/>
+                                <rect key="frame" x="94.666666666666686" y="648" width="74.333333333333314" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="changeColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gdg-v8-Pf1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Le-jG-gy1">
-                                <rect key="frame" x="320" y="648" width="74" height="30"/>
+                                <rect key="frame" x="320.33333333333326" y="648" width="73.666666666666686" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="changeColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gxo-4t-fRF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgM-KG-tv3">
-                                <rect key="frame" x="20" y="648" width="74" height="30"/>
+                                <rect key="frame" x="20" y="648" width="73.666666666666671" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="changeColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rmo-dY-TfX"/>
@@ -368,7 +368,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yy4-p3-EyR">
-                                <rect key="frame" x="245" y="648" width="74" height="30"/>
+                                <rect key="frame" x="244.99999999999997" y="648" width="74.333333333333286" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.56684796680000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="changeColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fsW-1k-XFj"/>
@@ -447,7 +447,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="GCDButton" destination="oba-A4-6WG" id="mK9-73-fyc"/>
+                        <outlet property="GCDButton" destination="oba-A4-6WG" id="CYI-bX-Np5"/>
                         <outlet property="OperationButton" destination="ZzU-Qf-LRy" id="AU5-Ct-Qti"/>
                         <outlet property="aboutMe" destination="AYy-fL-uEv" id="JRe-dV-8MJ"/>
                         <outlet property="avatar" destination="uzA-z6-1tD" id="Juu-Am-FU8"/>

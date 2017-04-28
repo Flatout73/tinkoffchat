@@ -30,6 +30,9 @@
 		71E4EA4F1E6CDE7400CFF95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71E4EA4E1E6CDE7400CFF95A /* Assets.xcassets */; };
 		71E4EA521E6CDE7400CFF95A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71E4EA501E6CDE7400CFF95A /* LaunchScreen.storyboard */; };
 		71E4EA5D1E6CDE7400CFF95A /* tink_chatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E4EA5C1E6CDE7400CFF95A /* tink_chatTests.swift */; };
+		71EBF3201EB2ACDD00551C1D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EBF31F1EB2ACDD00551C1D /* StorageManager.swift */; };
+		71EBF3221EB2B13D00551C1D /* ISaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EBF3211EB2B13D00551C1D /* ISaver.swift */; };
+		71EC26711EB2A156007E4BFC /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EC26701EB2A156007E4BFC /* DataBase.swift */; };
 		71ECAC4C1E89AACF0097F27A /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECAC4B1E89AACF0097F27A /* ConversationCell.swift */; };
 		71ECAC4E1E89B7040097F27A /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECAC4D1E89B7040097F27A /* ConversationsListViewController.swift */; };
 		71ECAC501E89D9D70097F27A /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECAC4F1E89D9D70097F27A /* CellData.swift */; };
@@ -74,6 +77,9 @@
 		71E4EA581E6CDE7400CFF95A /* tink_chatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tink_chatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71E4EA5C1E6CDE7400CFF95A /* tink_chatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tink_chatTests.swift; sourceTree = "<group>"; };
 		71E4EA5E1E6CDE7400CFF95A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71EBF31F1EB2ACDD00551C1D /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		71EBF3211EB2B13D00551C1D /* ISaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISaver.swift; sourceTree = "<group>"; };
+		71EC26701EB2A156007E4BFC /* DataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		71ECAC4B1E89AACF0097F27A /* ConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		71ECAC4D1E89B7040097F27A /* ConversationsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		71ECAC4F1E89D9D70097F27A /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 				7149B5B11E940990006D0298 /* GCDataManager.swift */,
 				71FDC19B1E9C205F00B1A2A7 /* Multipeer.swift */,
 				7149B5B31E940AA9006D0298 /* OperationDataManager.swift */,
+				71EC26701EB2A156007E4BFC /* DataBase.swift */,
 			);
 			path = CoreLayer;
 			sourceTree = "<group>";
@@ -133,6 +140,7 @@
 			children = (
 				7185ECA41EAD3419004B50CE /* Protocols */,
 				71304DA51EACF13F008A61F5 /* Communicator.swift */,
+				71EBF31F1EB2ACDD00551C1D /* StorageManager.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -151,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				7185ECA11EAD32F4004B50CE /* ICommunicatorDelegate.swift */,
+				71EBF3211EB2B13D00551C1D /* ISaver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -327,6 +336,7 @@
 				71ECAC4E1E89B7040097F27A /* ConversationsListViewController.swift in Sources */,
 				71E4EA471E6CDE7400CFF95A /* ProfileViewController.swift in Sources */,
 				7185ECA21EAD32F4004B50CE /* ICommunicatorDelegate.swift in Sources */,
+				71EC26711EB2A156007E4BFC /* DataBase.swift in Sources */,
 				7149B5B41E940AA9006D0298 /* OperationDataManager.swift in Sources */,
 				710BB7C61E93118C0027FD99 /* Plist.swift in Sources */,
 				7185EC9E1EAD3234004B50CE /* IConversationModelDelegate.swift in Sources */,
@@ -337,11 +347,13 @@
 				7185ECA61EAD343F004B50CE /* ICommunicator.swift in Sources */,
 				71E4EA451E6CDE7400CFF95A /* AppDelegate.swift in Sources */,
 				71ECAC4C1E89AACF0097F27A /* ConversationCell.swift in Sources */,
+				71EBF3221EB2B13D00551C1D /* ISaver.swift in Sources */,
 				71ECAC501E89D9D70097F27A /* CellData.swift in Sources */,
 				712EA5631E8AD91500547C7F /* MessagesViewController.swift in Sources */,
 				712EA5611E8AD27D00547C7F /* BubbleMessageCell.swift in Sources */,
 				7149B5B21E940990006D0298 /* GCDataManager.swift in Sources */,
 				71304DA61EACF13F008A61F5 /* Communicator.swift in Sources */,
+				71EBF3201EB2ACDD00551C1D /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +502,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.tcsbank.tink-chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

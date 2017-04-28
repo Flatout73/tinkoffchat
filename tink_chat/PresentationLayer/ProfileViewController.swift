@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 10.0, *)
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     @IBOutlet weak var colorText: UILabel!
@@ -17,12 +18,15 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     @IBOutlet weak var progress: UIActivityIndicatorView!
     
+    
     @IBOutlet weak var GCDButton: UIButton!
     @IBOutlet weak var OperationButton: UIButton!
     
     let Name = "Name"
     let Text =  "Text"
     let Color = "Color"
+    
+    var model: IProfileModel? = ProfileModel()
     
     //пока уберу, так как придется переделывать для Core Data
     //let gcd = GCDataManager()
@@ -104,26 +108,27 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         progress.startAnimating()
     
+        model?.read(complete: completeRead)
         
         //gcd.read(complete: completeRead)
         //oper.readInfo(complete: completeRead)
     }
     
-//    func completeRead(_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor?) {
-//        self.nameTextField.text = name
-//        if let picture = avatar {
-//            self.avatar.image = picture
-//        }
-//        self.aboutMe.text = text
-//        
-//        print(color?.toHexString())
-//        if let col = color {
-//            print(col.toHexString())
-//            self.colorText.textColor = col
-//        }
-//        
-//        self.progress.stopAnimating()
-//    }
+    func completeRead(_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor? = nil) {
+        self.nameTextField.text = name
+        if let picture = avatar {
+            self.avatar.image = picture
+        }
+        self.aboutMe.text = text
+        
+        print(color?.toHexString())
+        if let col = color {
+            print(col.toHexString())
+            self.colorText.textColor = col
+        }
+        
+        self.progress.stopAnimating()
+    }
     
     func didChanges(yes: Bool = true) {
         if(yes) {
@@ -208,9 +213,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         progress.startAnimating()
         didChanges(yes:false)
     
+        model?.save(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: nil, complete: completeSave)
+        
         //gcd.save(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
         
-        print(colorText.textColor.toHexString())
+        //print(colorText.textColor.toHexString())
     }
 
     @IBAction func saveOperations(_ sender: UIButton) {
@@ -218,33 +225,33 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         //oper.saveInfo(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
     }
     
-//    func completeSave(error: String?) {
-//        
-//        self.progress.stopAnimating()
-//        
-//        if let err = error {
-//            
-//            let alert = UIAlertController(title: "Не удалось сохранить данные", message: err, preferredStyle: .alert)
-//            
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            alert.addAction(UIAlertAction(title: "Повторить", style: .default) { [weak self]
-//                (ACTION) in
-//                if let this = self {
-//                //let gcd = GCDataManager()
-//                this.gcd.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: this.colorText.textColor, complete: this.completeSave)
-//                }
-//            })
-//            
-//            self.present(alert, animated: true, completion: nil)
-//        } else {
-//        
-//        self.didChanges(yes: false)
-//        
-//        let alert = UIAlertView(title:"Данные успешно сохранены", message:nil, delegate:nil, cancelButtonTitle:"OK")
-//        
-//        alert.show()
-//        }
-//    }
+    func completeSave(error: String?) {
+        
+        self.progress.stopAnimating()
+        
+        if let err = error {
+            
+            let alert = UIAlertController(title: "Не удалось сохранить данные", message: err, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Повторить", style: .default) { [weak self]
+                (ACTION) in
+                if let this = self {
+                //let gcd = GCDataManager()
+                //this.gcd.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: this.colorText.textColor, complete: this.completeSave)
+                }
+            })
+            
+            self.present(alert, animated: true, completion: nil)
+        } else {
+        
+        self.didChanges(yes: false)
+        
+        let alert = UIAlertView(title:"Данные успешно сохранены", message:nil, delegate:nil, cancelButtonTitle:"OK")
+        
+        alert.show()
+        }
+    }
     
     
 }
