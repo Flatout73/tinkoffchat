@@ -32,6 +32,8 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var textBox: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
     var titleTo: String?
     
     var userID: String?
@@ -51,6 +53,30 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         if(history) {
             sendButton.isEnabled = false
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(show: true, notification: notification)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(show: false, notification: notification)
+    }
+    
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+    
+        var userInfo = notification.userInfo!
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let animationDurarion =  userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        let changeInHeight = (keyboardFrame.height) * (show ? 1 : -1)
+        UIView.animate(withDuration: animationDurarion, animations: { () -> Void in
+            self.bottomConstraint.constant += changeInHeight
+        })
+        
     }
 
     func didReceiveMessage(text: String) {
@@ -62,7 +88,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         DispatchQueue.main.async { [weak self] in
             if let this = self{
                 this.table.reloadData()
-                this.table.scrollToRow(at: IndexPath(row: 0, section: this.countMessages), at: .bottom, animated: true)
+                this.table.scrollToRow(at: IndexPath(row: 0, section: this.countMessages - 1), at: .bottom, animated: true)
             }
         }
     }
@@ -73,6 +99,9 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillDisappear(_ animated: Bool) {
         delegate?.saveMessages(userID: userID!, fromMe: messagesFromMe, toMe: messagesToMe)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,11 +139,13 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func sendMessage(_ sender: UIButton) {
         
         if let t = textBox.text{
-            if let id = userID {
-                messagesModel?.send(message: t, to: id, completionHandler: completeSend)
-                textBox.text = ""
-            } else {
-                print("No userID")
+            if(t != ""){
+                if let id = userID {
+                    messagesModel?.send(message: t, to: id, completionHandler: completeSend)
+                    textBox.text = ""
+                } else {
+                    print("No userID")
+                }
             }
         }
     }

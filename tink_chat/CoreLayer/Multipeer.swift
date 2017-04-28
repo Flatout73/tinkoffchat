@@ -148,7 +148,7 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
     }
     
     func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
-        print("sendMessage")
+        print("sendMessage to " + userID)
         
         do {
         if let userSession = sessions[userID]{

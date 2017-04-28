@@ -11,7 +11,7 @@ import UIKit
 @available(iOS 10.0, *)
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
-    @IBOutlet weak var colorText: UILabel!
+    //@IBOutlet weak var colorText: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var aboutMe: UITextView!
@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     
     @IBOutlet weak var GCDButton: UIButton!
-    @IBOutlet weak var OperationButton: UIButton!
+    //@IBOutlet weak var OperationButton: UIButton!
     
     let Name = "Name"
     let Text =  "Text"
@@ -121,11 +121,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         }
         self.aboutMe.text = text
         
-        print(color?.toHexString())
-        if let col = color {
-            print(col.toHexString())
-            self.colorText.textColor = col
-        }
+//        print(color?.toHexString())
+//        if let col = color {
+//            print(col.toHexString())
+//            self.colorText.textColor = col
+//        }
         
         self.progress.stopAnimating()
     }
@@ -133,14 +133,14 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func didChanges(yes: Bool = true) {
         if(yes) {
             GCDButton.isEnabled = true
-            OperationButton.isEnabled = true
+            //OperationButton.isEnabled = true
             GCDButton.backgroundColor = UIColor.yellow
-            OperationButton.backgroundColor = UIColor.yellow
+            //OperationButton.backgroundColor = UIColor.yellow
         } else {
             GCDButton.isEnabled = false
-            OperationButton.isEnabled = false
+            //OperationButton.isEnabled = false
             GCDButton.backgroundColor = UIColor.gray
-            OperationButton.backgroundColor = UIColor.gray
+            //OperationButton.backgroundColor = UIColor.gray
         }
     }
     
@@ -158,10 +158,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         }
     }
     
-    @IBAction func changeColor(_ sender: UIButton) {
-        colorText.textColor = sender.backgroundColor
-        didChanges(yes: true)
-    }
+//    @IBAction func changeColor(_ sender: UIButton) {
+//        colorText.textColor = sender.backgroundColor
+//        didChanges(yes: true)
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
@@ -219,11 +219,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         //print(colorText.textColor.toHexString())
     }
-
-    @IBAction func saveOperations(_ sender: UIButton) {
-    
-        //oper.saveInfo(name: nameTextField.text!, text: aboutMe.text, avatar: avatar.image!, color: colorText.textColor, complete: completeSave)
-    }
     
     func completeSave(error: String?) {
         
@@ -237,6 +232,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             alert.addAction(UIAlertAction(title: "Повторить", style: .default) { [weak self]
                 (ACTION) in
                 if let this = self {
+                    this.model?.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: nil, complete: this.completeSave)
                 //let gcd = GCDataManager()
                 //this.gcd.save(name: this.nameTextField.text!, text: this.aboutMe.text, avatar: this.avatar.image!, color: this.colorText.textColor, complete: this.completeSave)
                 }
