@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @available(iOS 10.0, *)
-class DataBase {
+class DataBase: IDataBase {
     // MARK: - Core Data stack
     
      var persistentContainer: NSPersistentContainer = {

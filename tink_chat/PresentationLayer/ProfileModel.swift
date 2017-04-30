@@ -15,7 +15,6 @@ protocol IProfileModel {
 }
 
 //здесь будет работа с CoreData
-@available(iOS 10.0, *)
 class ProfileModel: IProfileModel {
     
     let storageManger = StoreManager()

@@ -8,7 +8,6 @@
 
 import UIKit
 
-@available(iOS 10.0, *)
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     //@IBOutlet weak var colorText: UILabel!
@@ -70,6 +69,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         myActionSheet.addAction(camera)
         myActionSheet.addAction(del)
         
+        myActionSheet.addAction(UIAlertAction(title: "Отмена", style: UIAlertActionStyle.cancel, handler:{
+            (alertAction: UIAlertAction!) in
+            myActionSheet.dismiss(animated: true, completion: nil)
+        }))
+        
         self.present(myActionSheet, animated: true, completion: nil)
         
         didChanges(yes: true)
@@ -107,9 +111,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         aboutMe.delegate = self
         
         progress.startAnimating()
-    
-        model?.read(complete: completeRead)
         
+        model?.read(complete: completeRead)
         //gcd.read(complete: completeRead)
         //oper.readInfo(complete: completeRead)
     }
