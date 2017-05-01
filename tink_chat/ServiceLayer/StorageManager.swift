@@ -66,7 +66,7 @@ class StoreManager: ISaver {
                 print(error)
             }
         } else {
-            if let appUser = AppUser.findUser(in: dataBaseOld.saveContext!) {
+            if let appUser = AppUser.findUser(in: dataBaseOld.mainContext!) {
                 if let avatar = appUser.avatar as Data? {
                     complete(appUser.name!, appUser.info!, UIImage(data: avatar), nil)
                 }

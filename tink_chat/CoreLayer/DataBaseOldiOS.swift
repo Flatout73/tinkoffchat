@@ -121,6 +121,7 @@ class DataBaseOldiOS: IDataBase {
             context.perform { [weak self] in
                 do {
                     try context.save()
+                    print("Контекст \(context.description) сохранен")
                 }
                 catch {
                     print("Context save error: \(error)")
