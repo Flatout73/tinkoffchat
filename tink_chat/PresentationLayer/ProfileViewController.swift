@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     let Text =  "Text"
     let Color = "Color"
     
-    var model: IProfileModel? = ProfileModel()
+    var model: IProfileModel?
     
     //пока уберу, так как придется переделывать для Core Data
     //let gcd = GCDataManager()

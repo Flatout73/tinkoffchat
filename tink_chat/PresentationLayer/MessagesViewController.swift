@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MessagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IMessagesModelDelegate {
 
@@ -50,13 +51,25 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         
         textBox.delegate = self
         
-        if(history) {
-            sendButton.isEnabled = false
-        }
+//        if(history) {
+//            sendButton.isEnabled = false
+//        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        
+        messagesModel?.frc?.delegate = self
+        do {
+            try messagesModel?.frc?.performFetch()
+        } catch {
+            print(error)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        sendButton.isEnabled = messagesModel!.enableButton()
     }
     
     func keyboardWillShow(notification:NSNotification) {
@@ -96,7 +109,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+        
     override func viewWillDisappear(_ animated: Bool) {
         delegate?.saveMessages(userID: userID!, fromMe: messagesFromMe, toMe: messagesToMe)
         
@@ -105,29 +118,64 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return countMessages
+        //return countMessages
+        
+        if let sections = messagesModel?.frc?.sections {
+            return sections.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        //return 1
+        
+        if let sections = messagesModel?.frc?.sections {
+            return sections[section].numberOfObjects
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(messagesFromMe[indexPath.section] == nil){
-        let cell = tableView.dequeueReusableCell(withIdentifier: "messageID", for: indexPath) as? BubbleMessageCell
-        if let c = cell {
-            c.messageLabel.text = messagesToMe[indexPath.section]
-            c.textM = messagesToMe[indexPath.section]
-            return c
-        } else {
-            return cell!
+//        if(messagesFromMe[indexPath.section] == nil){
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "messageID", for: indexPath) as? BubbleMessageCell
+//        if let c = cell {
+//            c.messageLabel.text = messagesToMe[indexPath.section]
+//            c.textM = messagesToMe[indexPath.section]
+//            return c
+//        } else {
+//            return cell!
+//            }
+//        }
+//        else {
+//         let cell = tableView.dequeueReusableCell(withIdentifier: "meMessageID", for: indexPath) as? BubbleMessageCell
+//            if let c = cell {
+//                c.messageLabel.text = messagesFromMe[indexPath.section]
+//                c.textM = messagesFromMe[indexPath.section]
+//                return c
+//            } else {
+//                return cell!
+//            }
+//        }
+        
+        let message = messagesModel?.frc?.object(at: indexPath)
+        
+        if(message?.sender == nil) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "meMessageID")
+            if let c = cell as? BubbleMessageCell {
+                c.messageLabel.text = message?.text
+                //c.textM = messagesToMe[indexPath.section]
+                return c
+            } else {
+                return cell!
             }
-        }
-        else {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "meMessageID", for: indexPath) as? BubbleMessageCell
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "messageId") as? BubbleMessageCell
             if let c = cell {
-                c.messageLabel.text = messagesFromMe[indexPath.section]
-                c.textM = messagesFromMe[indexPath.section]
+                c.messageLabel.text = message?.text
+                //c.textM = messagesToMe[indexPath.section]
                 return c
             } else {
                 return cell!
@@ -205,4 +253,54 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     */
 
+}
+
+
+extension MessagesViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        table.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        table.endUpdates()
+    }
+    
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .delete:
+            if let indexPath = indexPath {
+                table.deleteRows(at: [indexPath], with: .automatic)
+            }
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                table.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .move:
+            if let indexPath = indexPath {
+                table.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                table.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                table.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .delete:
+            table.deleteSections(IndexSet(integer: sectionIndex),
+                                     with: .automatic)
+        case .insert:
+            table.insertSections(IndexSet(integer: sectionIndex),
+                                     with: .automatic)
+        case .move, .update: break
+        }
+    }
+    
 }

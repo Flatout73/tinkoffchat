@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ICommunicator {
-    func sendMessage(string: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> ())?)
+    func sendMessage(string: String, to userID: String, completionHandler: ((_ success: String?, _ error: Error?) -> ())?)
     weak var delegate: ICommunicatorDelegate? {get set}
     var online: Bool {get set}
 }

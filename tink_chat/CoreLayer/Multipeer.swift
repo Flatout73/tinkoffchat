@@ -80,7 +80,7 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
     }
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("lost")
-        //delegate?.didLostUser(userID: peerID.displayName)
+        delegate?.didLostUser(userID: peerID.displayName)
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
@@ -125,7 +125,11 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         let ser = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: String]
         if let d = ser{
             if let message = d["text"]{
-                delegate?.didReceiveMessage(text: message, fromUser: peerID.displayName, toUser: myPeerId.displayName)
+                if let messageId = d["messageId"] {
+                    delegate?.didReceiveMessage(text: message, fromUser: peerID.displayName, toUser: myPeerId.displayName, messageID: messageId)
+                } else {
+                    print("Нет Id у сообщения")
+                }
             } else {
                 print("Нет поля text!")
             }
@@ -147,21 +151,22 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         print("didStartFinishResourceWithName")
     }
     
-    func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
+    func sendMessage(string: String, to userID: String, completionHandler: ((String?, Error?) -> ())?) {
         print("sendMessage to " + userID)
         
         do {
         if let userSession = sessions[userID]{
             
-            let message = "{\"eventType\":\"TextMessage\", \"messageId\":\"\(self.generateMessageId())\", \"text\": \"\(string)\"}"
+            let messageID = self.generateMessageId()
+            let message = "{\"eventType\":\"TextMessage\", \"messageId\":\"\(messageID)\", \"text\": \"\(string)\"}"
             print(userSession.connectedPeers)
             try userSession.send(message.data(using: .utf8)!, toPeers: userSession.connectedPeers, with: .reliable)
         
-            completionHandler?(true, nil)
+            completionHandler?(messageID, nil)
         
         }
         } catch {
-            completionHandler?(false, error)
+            completionHandler?(nil, error)
             print(error)
         }
     }

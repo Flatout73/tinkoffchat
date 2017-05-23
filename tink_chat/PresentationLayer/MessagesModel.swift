@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import CoreData
 
 protocol IMessagesModel: class {
     weak var delegate: IMessagesModelDelegate? {get set}
     func didReceiveMessage(text: String)
+    func enableButton() -> Bool
 }
 
 class MessagesModel: IMessagesModel {
@@ -18,11 +20,36 @@ class MessagesModel: IMessagesModel {
 
     weak var manager: ICommunicatorSender?
     
+    weak var storage: ISaverConversation?
+    
+    var frc: NSFetchedResultsController<Message>?
+    
+    var peerID: String
+    
+    init(peerID: String) {
+        self.peerID = peerID
+    }
+    
+    var k = 11
     func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
-        manager?.send(message: message, to: userID, completionHandler: completionHandler)
+        storage?.didSendMessage(text: message, fromUser: "me", toUser: userID, messageID: String(k))
+        k += 1
+        manager?.send(message: message, to: userID) { (messageId, error) in
+            if let id = messageId {
+                self.storage?.didSendMessage(text: message, fromUser: "me", toUser: userID, messageID: id)
+                completionHandler?(true, error)
+            } else {
+                completionHandler?(false, error)
+            }
+        }
+    
     }
     
     func didReceiveMessage(text: String) {
-        delegate?.didReceiveMessage(text: text)
+        //delegate?.didReceiveMessage(text: text)
+    }
+    
+    func enableButton() -> Bool {
+        return storage!.getUserOnlineBy(peerID: peerID)
     }
 }

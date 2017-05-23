@@ -9,6 +9,8 @@
 import Foundation
 
 protocol IConversationsModelDelegate: class {
+    
+    
     func didRecieveMessage(text: String, userID: String)
     func deleteUser(peerID: String)
     func addUser(name: String, ID: String, message: String?, date: Date, unread: Bool, online: Bool)

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol ICommunicatorSender : class {
-    func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?)
+    func send(message: String, to userID: String, completionHandler: ((String?, Error?) -> ())?)
 }
 
 class CommunicatorManager : ICommunicatorDelegate, ICommunicatorSender {
@@ -32,11 +32,11 @@ class CommunicatorManager : ICommunicatorDelegate, ICommunicatorSender {
         self.messagesController = messagesController
     }
     
-    func didReceiveMessage(text: String, fromUser: String, toUser: String) {
+    func didReceiveMessage(text: String, fromUser: String, toUser: String, messageID: String) {
         if (messagesController != nil){
             messagesController?.didReceiveMessage(text: text)
         }
-        conversationController?.didRecieveMessage(text: text, userID: fromUser)
+        conversationController?.didRecieveMessage(text: text, userID: fromUser, messageID: messageID)
     }
 
     func failedToStartAdvertising(error: Error) {
@@ -63,7 +63,7 @@ class CommunicatorManager : ICommunicatorDelegate, ICommunicatorSender {
         }
     }
     
-    func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
+    func send(message: String, to userID: String, completionHandler: ((String?, Error?) -> ())?) {
         multipeer.sendMessage(string: message, to: userID, completionHandler: completionHandler)
     }
 

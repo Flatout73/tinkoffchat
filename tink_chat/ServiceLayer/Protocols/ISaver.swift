@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 protocol ISaver {
-    func save(name: String, text: String, avatar: UIImage, color: UIColor?, complete: @escaping (String?) -> Void)
-    func read(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor?) -> Void)
+    func saveAppUser(name: String, text: String, avatar: UIImage, color: UIColor?, complete: @escaping (String?) -> Void)
+    func readAppUser(complete: @escaping (_ name: String, _ text: String, _ avatar: UIImage?, _ color: UIColor?) -> Void)
+    
 }

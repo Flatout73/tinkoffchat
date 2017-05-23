@@ -14,17 +14,16 @@ protocol IProfileModel {
     func save(name:String, text: String, avatar: UIImage, color: UIColor?, complete: @escaping (String?) -> Void)
 }
 
-//здесь будет работа с CoreData
 class ProfileModel: IProfileModel {
     
-    let storageManger = StoreManager()
+    var storageManger: ISaver?
     
     func save(name: String, text: String, avatar: UIImage, color: UIColor?, complete: @escaping (String?) -> Void) {
-        storageManger.save(name: name, text: text, avatar: avatar, color: nil, complete: complete)
+        storageManger?.saveAppUser(name: name, text: text, avatar: avatar, color: nil, complete: complete)
     }
 
     func read(complete: @escaping (String, String, UIImage?, UIColor?) -> ()) {
-        storageManger.read(complete: complete)
+        storageManger?.readAppUser(complete: complete)
     }
     
 }

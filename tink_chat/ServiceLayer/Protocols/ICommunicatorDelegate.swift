@@ -16,5 +16,5 @@ protocol ICommunicatorDelegate : class {
     func failedToStartBrowsingForUsers(error: Error)
     func failedToStartAdvertising(error: Error)
     
-    func didReceiveMessage(text: String, fromUser: String, toUser: String)
+    func didReceiveMessage(text: String, fromUser: String, toUser: String, messageID: String)
 }
