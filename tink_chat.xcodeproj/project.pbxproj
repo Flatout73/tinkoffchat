@@ -19,11 +19,22 @@
 		71304DAC1EAD0558008A61F5 /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71304DAB1EAD0558008A61F5 /* MessagesModel.swift */; };
 		7149B5B21E940990006D0298 /* GCDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7149B5B11E940990006D0298 /* GCDataManager.swift */; };
 		7149B5B41E940AA9006D0298 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7149B5B31E940AA9006D0298 /* OperationDataManager.swift */; };
+		718112BF1ED5A23000819DDD /* IRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112BE1ED5A23000819DDD /* IRequest.swift */; };
+		718112C11ED5A2FA00819DDD /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C01ED5A2FA00819DDD /* Parser.swift */; };
+		718112C31ED5A35300819DDD /* RequestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C21ED5A35300819DDD /* RequestConfig.swift */; };
+		718112C51ED5A3F700819DDD /* RequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C41ED5A3F700819DDD /* RequestSender.swift */; };
+		718112C71ED5A55D00819DDD /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C61ED5A55D00819DDD /* RequestFactory.swift */; };
+		718112C91ED5D47600819DDD /* ImageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C81ED5D47600819DDD /* ImageParser.swift */; };
+		718112CB1ED5D48900819DDD /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112CA1ED5D48900819DDD /* ImageRequest.swift */; };
+		718112CD1ED5E4FF00819DDD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112CC1ED5E4FF00819DDD /* CollectionViewController.swift */; };
 		7185EC9C1EAD316F004B50CE /* IConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7185EC9B1EAD316F004B50CE /* IConversationCellConfiguration.swift */; };
 		7185EC9E1EAD3234004B50CE /* IConversationModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7185EC9D1EAD3234004B50CE /* IConversationModelDelegate.swift */; };
 		7185ECA01EAD3282004B50CE /* IMessageModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7185EC9F1EAD3282004B50CE /* IMessageModelDelegate.swift */; };
 		7185ECA21EAD32F4004B50CE /* ICommunicatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7185ECA11EAD32F4004B50CE /* ICommunicatorDelegate.swift */; };
 		7185ECA61EAD343F004B50CE /* ICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7185ECA51EAD343F004B50CE /* ICommunicator.swift */; };
+		718F5FDC1ED5EF290081479B /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718F5FDB1ED5EF290081479B /* ImageManager.swift */; };
+		718F5FDE1ED5F0CC0081479B /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718F5FDD1ED5F0CC0081479B /* CollectionModel.swift */; };
+		718F5FE01ED61DE00081479B /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718F5FDF1ED61DE00081479B /* ImageCell.swift */; };
 		7197B1B81EB552160085AB0F /* DataBaseOldiOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7197B1B71EB552160085AB0F /* DataBaseOldiOS.swift */; };
 		7197B1BA1EB5626C0085AB0F /* IDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7197B1B91EB5626C0085AB0F /* IDataBase.swift */; };
 		71B600FA1EC8B4B000E3BA09 /* ExtensionAppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B600F91EC8B4B000E3BA09 /* ExtensionAppUser.swift */; };
@@ -70,11 +81,22 @@
 		71304DAB1EAD0558008A61F5 /* MessagesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		7149B5B11E940990006D0298 /* GCDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDataManager.swift; sourceTree = "<group>"; };
 		7149B5B31E940AA9006D0298 /* OperationDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
+		718112BE1ED5A23000819DDD /* IRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRequest.swift; sourceTree = "<group>"; };
+		718112C01ED5A2FA00819DDD /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		718112C21ED5A35300819DDD /* RequestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestConfig.swift; sourceTree = "<group>"; };
+		718112C41ED5A3F700819DDD /* RequestSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestSender.swift; sourceTree = "<group>"; };
+		718112C61ED5A55D00819DDD /* RequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
+		718112C81ED5D47600819DDD /* ImageParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageParser.swift; sourceTree = "<group>"; };
+		718112CA1ED5D48900819DDD /* ImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
+		718112CC1ED5E4FF00819DDD /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7185EC9B1EAD316F004B50CE /* IConversationCellConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IConversationCellConfiguration.swift; sourceTree = "<group>"; };
 		7185EC9D1EAD3234004B50CE /* IConversationModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IConversationModelDelegate.swift; sourceTree = "<group>"; };
 		7185EC9F1EAD3282004B50CE /* IMessageModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMessageModelDelegate.swift; sourceTree = "<group>"; };
 		7185ECA11EAD32F4004B50CE /* ICommunicatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICommunicatorDelegate.swift; sourceTree = "<group>"; };
 		7185ECA51EAD343F004B50CE /* ICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICommunicator.swift; sourceTree = "<group>"; };
+		718F5FDB1ED5EF290081479B /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		718F5FDD1ED5F0CC0081479B /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
+		718F5FDF1ED61DE00081479B /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		7197B1B71EB552160085AB0F /* DataBaseOldiOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseOldiOS.swift; sourceTree = "<group>"; };
 		7197B1B91EB5626C0085AB0F /* IDataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDataBase.swift; sourceTree = "<group>"; };
 		71B600F91EC8B4B000E3BA09 /* ExtensionAppUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionAppUser.swift; sourceTree = "<group>"; };
@@ -136,6 +158,12 @@
 				71B600FD1EC8B88800E3BA09 /* ExtesionMessage.swift */,
 				71B600FF1EC8BA3B00E3BA09 /* ExtensionUser.swift */,
 				71007FD91ED208F70000FA90 /* ConversationDataProvider.swift */,
+				718112C01ED5A2FA00819DDD /* Parser.swift */,
+				718112C21ED5A35300819DDD /* RequestConfig.swift */,
+				718112C41ED5A3F700819DDD /* RequestSender.swift */,
+				718112C61ED5A55D00819DDD /* RequestFactory.swift */,
+				718112C81ED5D47600819DDD /* ImageParser.swift */,
+				718112CA1ED5D48900819DDD /* ImageRequest.swift */,
 			);
 			path = CoreLayer;
 			sourceTree = "<group>";
@@ -153,6 +181,9 @@
 				71304DAB1EAD0558008A61F5 /* MessagesModel.swift */,
 				71304DA71EACF6C0008A61F5 /* ConversationsModel.swift */,
 				71304DA91EAD031B008A61F5 /* ProfileModel.swift */,
+				718112CC1ED5E4FF00819DDD /* CollectionViewController.swift */,
+				718F5FDD1ED5F0CC0081479B /* CollectionModel.swift */,
+				718F5FDF1ED61DE00081479B /* ImageCell.swift */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -163,6 +194,7 @@
 				7185ECA41EAD3419004B50CE /* Protocols */,
 				71304DA51EACF13F008A61F5 /* CommunicatorManager.swift */,
 				71EBF31F1EB2ACDD00551C1D /* StorageManager.swift */,
+				718F5FDB1ED5EF290081479B /* ImageManager.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -192,6 +224,7 @@
 			children = (
 				7185ECA51EAD343F004B50CE /* ICommunicator.swift */,
 				7197B1B91EB5626C0085AB0F /* IDataBase.swift */,
+				718112BE1ED5A23000819DDD /* IRequest.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -354,17 +387,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				718112C91ED5D47600819DDD /* ImageParser.swift in Sources */,
 				71304DAA1EAD031B008A61F5 /* ProfileModel.swift in Sources */,
+				718F5FDC1ED5EF290081479B /* ImageManager.swift in Sources */,
 				71B600FE1EC8B88800E3BA09 /* ExtesionMessage.swift in Sources */,
 				7185ECA01EAD3282004B50CE /* IMessageModelDelegate.swift in Sources */,
+				718112CD1ED5E4FF00819DDD /* CollectionViewController.swift in Sources */,
 				7197B1BA1EB5626C0085AB0F /* IDataBase.swift in Sources */,
 				71E4EA4D1E6CDE7400CFF95A /* tink_chat.xcdatamodeld in Sources */,
 				71ECAC4E1E89B7040097F27A /* ConversationsListViewController.swift in Sources */,
 				71E4EA471E6CDE7400CFF95A /* ProfileViewController.swift in Sources */,
 				7185ECA21EAD32F4004B50CE /* ICommunicatorDelegate.swift in Sources */,
 				71EC26711EB2A156007E4BFC /* DataBase.swift in Sources */,
+				718112C71ED5A55D00819DDD /* RequestFactory.swift in Sources */,
+				718112CB1ED5D48900819DDD /* ImageRequest.swift in Sources */,
 				7149B5B41E940AA9006D0298 /* OperationDataManager.swift in Sources */,
+				718112C31ED5A35300819DDD /* RequestConfig.swift in Sources */,
 				71B600FA1EC8B4B000E3BA09 /* ExtensionAppUser.swift in Sources */,
+				718F5FDE1ED5F0CC0081479B /* CollectionModel.swift in Sources */,
 				710BB7C61E93118C0027FD99 /* Plist.swift in Sources */,
 				7185EC9E1EAD3234004B50CE /* IConversationModelDelegate.swift in Sources */,
 				71FDC19C1E9C205F00B1A2A7 /* Multipeer.swift in Sources */,
@@ -372,6 +412,8 @@
 				71304DAC1EAD0558008A61F5 /* MessagesModel.swift in Sources */,
 				71B601001EC8BA3B00E3BA09 /* ExtensionUser.swift in Sources */,
 				71304DA81EACF6C0008A61F5 /* ConversationsModel.swift in Sources */,
+				718112BF1ED5A23000819DDD /* IRequest.swift in Sources */,
+				718F5FE01ED61DE00081479B /* ImageCell.swift in Sources */,
 				7185ECA61EAD343F004B50CE /* ICommunicator.swift in Sources */,
 				71E4EA451E6CDE7400CFF95A /* AppDelegate.swift in Sources */,
 				71ECAC4C1E89AACF0097F27A /* ConversationCell.swift in Sources */,
@@ -384,7 +426,9 @@
 				7149B5B21E940990006D0298 /* GCDataManager.swift in Sources */,
 				71304DA61EACF13F008A61F5 /* CommunicatorManager.swift in Sources */,
 				71EBF3201EB2ACDD00551C1D /* StorageManager.swift in Sources */,
+				718112C51ED5A3F700819DDD /* RequestSender.swift in Sources */,
 				71B600FC1EC8B5E200E3BA09 /* ExtensionConversation.swift in Sources */,
+				718112C11ED5A2FA00819DDD /* Parser.swift in Sources */,
 				7197B1B81EB552160085AB0F /* DataBaseOldiOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

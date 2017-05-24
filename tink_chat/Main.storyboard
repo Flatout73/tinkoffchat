@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fSy-RD-7Wr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fSy-RD-7Wr">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -382,6 +382,7 @@
                         <outlet property="avatar" destination="uzA-z6-1tD" id="Juu-Am-FU8"/>
                         <outlet property="nameTextField" destination="0or-OA-exY" id="h92-eL-Gv5"/>
                         <outlet property="progress" destination="3AA-Y4-AUP" id="vjT-mM-vT5"/>
+                        <segue destination="CPO-hj-1PT" kind="presentation" identifier="showCollection" id="nNt-oy-5IR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -392,6 +393,61 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="937.68115942028987" y="262.5"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="LnU-3d-9gW">
+            <objects>
+                <collectionViewController storyboardIdentifier="CollectionView" id="CPO-hj-1PT" customClass="CollectionViewController" customModule="tink_chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="AVx-Nn-wDd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CnU-kz-1hm">
+                            <size key="itemSize" width="200" height="200"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="g0h-gr-6OT">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="photoCell" reuseIdentifier="photoCell" id="vSH-wu-QaN" customClass="ImageCell" customModule="tink_chat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="485-7g-Jme">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="485-7g-Jme" firstAttribute="leading" secondItem="vSH-wu-QaN" secondAttribute="leading" id="1rS-nz-ehi"/>
+                                    <constraint firstAttribute="bottom" secondItem="485-7g-Jme" secondAttribute="bottom" id="Af7-rf-iBG"/>
+                                    <constraint firstItem="485-7g-Jme" firstAttribute="top" secondItem="vSH-wu-QaN" secondAttribute="top" id="WAH-he-esO"/>
+                                    <constraint firstAttribute="trailing" secondItem="485-7g-Jme" secondAttribute="trailing" id="YLz-63-V1d"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="485-7g-Jme" id="wmS-cJ-33C"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="CPO-hj-1PT" id="0JX-JW-Zci"/>
+                            <outlet property="delegate" destination="CPO-hj-1PT" id="DRv-MB-5EV"/>
+                        </connections>
+                    </collectionView>
+                    <connections>
+                        <outlet property="indicator" destination="g0h-gr-6OT" id="3Ci-oJ-gb0"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gow-6l-4Db" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1896" y="263"/>
         </scene>
     </scenes>
     <resources>

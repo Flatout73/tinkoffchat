@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, ChangeImage{
 
     //@IBOutlet weak var colorText: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
@@ -63,10 +63,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             }
             
         }
+        
+        let download = UIAlertAction(title: "Загрузить", style: UIAlertActionStyle.default) {
+            (Action) in
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let controller = storyboard.instantiateViewController(withIdentifier: "CollectionView") as! CollectionViewController
+//            
+//            //self.navigationController?.pushViewController(controller, animated: true)
+//            
+//            self.present(controller, animated: true, completion: nil)
+            
+            self.performSegue(withIdentifier: "showCollection", sender: self)
+        }
 
         
         myActionSheet.addAction(add)
         myActionSheet.addAction(camera)
+        myActionSheet.addAction(download)
         myActionSheet.addAction(del)
         
         myActionSheet.addAction(UIAlertAction(title: "Отмена", style: UIAlertActionStyle.cancel, handler:{
@@ -252,6 +265,17 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let collectionVC = segue.destination
+        
+        if let viewController = collectionVC as? CollectionViewController {
+            viewController.delegate = self
+        }
+    }
+    
+    func chooseImage(image: UIImage) {
+        avatar.image = image
+    }
     
 }
 
