@@ -40,6 +40,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         
         conversationsModel.frc.delegate = self
         
+        conversationsModel.store.makeAllOffline()
         //conversationsModel.delegate = self
         
         do {
@@ -50,13 +51,13 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        conversationsModel.deleteUser(peerID: "121")
+        //conversationsModel.deleteUser(peerID: "121")
     }
-    var k = 121
-    @IBAction func createUser(_ sender: Any) {
-        conversationsModel.addUser(name: "kik", ID: String(k))
-        k += 1
-    }
+//    var k = 121
+//    @IBAction func createUser(_ sender: Any) {
+//        conversationsModel.addUser(name: "kik", ID: String(k))
+//        k += 1
+//    }
     
     func addUser(name: String, ID: String, message: String?, date: Date = Date(), unread: Bool = false, online: Bool = true) {
         
@@ -185,7 +186,13 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         if let c = cell {
             let conversation = conversationsModel.frc.object(at: indexPath)
             
-            c.name = (conversation.participants?.array.first as! User).name
+            if let participants = conversation.participants as? Set<User> {
+                for user in participants{
+                    c.name = user.name
+                    break
+                }
+            }
+            //c.name = (conversation.participants?.array.first as! User).name
             if let last = conversation.lastMessage{
                 c.date = last.date as! Date
             } else {
@@ -212,9 +219,15 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         
    
         let conversation = conversationsModel.frc.object(at: indexPath)
-        let user = conversation.participants?.array.first as! User
-        titleTo = user.name
-        id = user.userId
+        var user: User?  //conversation.participants?.array.first as! User
+        if let users = conversation.participants as? Set<User> {
+            for us in users {
+                user = us
+                break
+            }
+        }
+        titleTo = user?.name
+        id = user?.userId
         
         self.performSegue(withIdentifier: "openChat", sender: self)
     }

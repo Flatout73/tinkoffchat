@@ -92,7 +92,7 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         print("found")
         print(info as Any)
         
-        if(sessions[peerID.displayName] == nil) {
+        if(sessions[peerID.displayName] == nil && peerID.displayName != myPeerId.displayName) {
             delegate?.didFoundUser(userID: peerID.displayName, userName: info?["userName"])
             let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
             session.delegate = self

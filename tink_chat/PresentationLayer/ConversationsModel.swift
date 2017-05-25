@@ -43,9 +43,9 @@ class ConversationsModel: IConversationsModel {
     func addUser(name: String, ID: String) {
         //self.delegate?.addUser(name: name, ID: ID, message: nil, date: Date(), unread: false, online: true)
         store.foundUser(name: name, ID: ID)
-        DispatchQueue.main.async{
-            self.table.reloadData()
-        }
+//        DispatchQueue.main.async{
+//            self.table.reloadData()
+//        }
     }
 
     func deleteUser(peerID: String) {
@@ -57,7 +57,7 @@ class ConversationsModel: IConversationsModel {
     }
 
     func didRecieveMessage(text: String, userID: String, messageID: String) {
-        self.delegate?.didRecieveMessage(text: text, userID: userID)
+        //self.delegate?.didRecieveMessage(text: text, userID: userID)
         store.didReceiveMessage(text: text, fromUser: userID, toUser: "me", messageID: messageID)
     }
 

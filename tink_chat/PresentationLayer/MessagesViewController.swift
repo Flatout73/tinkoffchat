@@ -67,9 +67,15 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
             print(error)
         }
     }
+
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         sendButton.isEnabled = messagesModel!.enableButton()
+        let last = (messagesModel?.frc?.sections?[0].numberOfObjects)! - 1
+        
+        if(last > 0) {
+            table.scrollToRow(at: IndexPath( row: last, section: 0), at: .bottom, animated: true)
+        }
     }
     
     func keyboardWillShow(notification:NSNotification) {
@@ -89,6 +95,11 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         UIView.animate(withDuration: animationDurarion, animations: { () -> Void in
             self.bottomConstraint.constant += changeInHeight
         })
+//        if(changeInHeight > 0){
+//            table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: changeInHeight, right: 0)
+//        } else {
+//            table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        }
         
     }
 
@@ -172,7 +183,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "messageId") as? BubbleMessageCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "messageID") as? BubbleMessageCell
             if let c = cell {
                 c.messageLabel.text = message?.text
                 //c.textM = messagesToMe[indexPath.section]
@@ -205,8 +216,12 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
             
             DispatchQueue.main.async { [weak self] in
                 if let this = self{
-                    this.table.reloadData()
-                    this.table.scrollToRow(at: IndexPath(row: 0, section: this.countMessages - 1), at: .bottom, animated: true)
+                    //this.table.reloadData()
+                    let last = (this.messagesModel?.frc?.sections?[0].numberOfObjects)! - 1
+                    
+                    if(last > 0) {
+                        this.table.scrollToRow(at: IndexPath( row: last, section: 0), at: .bottom, animated: true)
+                    }
                 }
             }
         } else {

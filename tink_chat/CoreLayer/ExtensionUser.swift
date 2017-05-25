@@ -35,7 +35,12 @@ extension User{
             
             if let user = results.first {
                 user.isOnline = true
-                (user.conversations?.array.first as? Conversation)?.isOnline = true
+                if let conversations = user.conversations as? Set<Conversation> {
+                    for conversation in conversations {
+                        conversation.isOnline = true
+                    }
+                }
+                //(user.conversations?.array.first as? Conversation)?.isOnline = true
                 user.name = name
                 return user
             } else {

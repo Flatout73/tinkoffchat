@@ -30,10 +30,11 @@ class MessagesModel: IMessagesModel {
         self.peerID = peerID
     }
     
-    var k = 11
+    //var k = 11
     func send(message: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
-        storage?.didSendMessage(text: message, fromUser: "me", toUser: userID, messageID: String(k))
-        k += 1
+        //storage?.didSendMessage(text: message, fromUser: "me", toUser: userID, messageID: String(k))
+        //completionHandler?(true, nil)
+        //k += 1
         manager?.send(message: message, to: userID) { (messageId, error) in
             if let id = messageId {
                 self.storage?.didSendMessage(text: message, fromUser: "me", toUser: userID, messageID: id)

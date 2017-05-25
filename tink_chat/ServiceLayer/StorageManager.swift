@@ -91,22 +91,8 @@ class StoreManager: ISaver, ISaverConversation {
                 
             } else {
                 print("User saved", name)
-                
-                let fetch: NSFetchRequest<Conversation> = Conversation.fetchRequest()
-                
-                let res = try? self.dataBaseOld.mainContext?.fetch(fetch)
-                
-                res??.last?.conversationID = res??.last?.conversationID
-                
-                print(res)
             }
         }
-        
-        let fetch: NSFetchRequest<Conversation> = Conversation.fetchRequest()
-        
-        let res = try? dataBaseOld.mainContext?.fetch(fetch)
-        
-        print(res)
     }
     
     func lostUser(peerID: String) {
@@ -118,7 +104,13 @@ class StoreManager: ISaver, ISaverConversation {
             
             let user = results?.first
             user?.isOnline = false
-            (user?.conversations?.array.first as? Conversation)?.isOnline = false
+            if let conversations = user?.conversations as? Set<Conversation> {
+                for conversation in conversations {
+                    conversation.isOnline = false
+                    break
+                }
+            }
+            //(user?.conversations?.array.first as? Conversation)?.isOnline = false
             dataBaseOld.performSave(context: dataBaseOld.saveContext!, completionHandler: nil)
         } catch {
             print(error.localizedDescription)
@@ -150,6 +142,8 @@ class StoreManager: ISaver, ISaverConversation {
     
     func getFRCForMessagesWith(conversationID: String) -> NSFetchedResultsController<Message> {
         let fetchRequest = dataBaseOld.mainContext!.persistentStoreCoordinator?.managedObjectModel.fetchRequestFromTemplate(withName: "MessagesWithConvId", substitutionVariables: ["ID":conversationID]) as! NSFetchRequest<Message>
+        
+        fetchRequest.fetchBatchSize = 10
         
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         
@@ -202,7 +196,7 @@ class StoreManager: ISaver, ISaverConversation {
             if let result = result{
                 for user in result {
                     user.isOnline = false
-                    user.conversations?.array.forEach { (conversation) in
+                    user.conversations?.forEach { (conversation) in
                         (conversation as? Conversation)?.isOnline = false
                     }
                 }
