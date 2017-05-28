@@ -10,13 +10,18 @@ import UIKit
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UIGestureRecognizerDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let tapGesture = SingleTouchDownGestureRecognizer(target: self, action: nil, window: window)
+        //tapGesture.delegate = self
+        window?.isUserInteractionEnabled = true
+        window?.addGestureRecognizer(tapGesture)
+        
         return true
     }
 
@@ -43,7 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         //self.saveContext()
     }
-
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // User tapped on screen, do whatever you want to do here.
+    
+        //if(t)
+        return false
+    }
     
     let emitterLayer = CAEmitterLayer()
     let cell = CAEmitterCell()
@@ -66,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             emitterLayer.emitterCells = [cell]
             
             
-           (window?.rootViewController! as! UINavigationController).visibleViewController!.view.layer.addSublayer(emitterLayer)
+            (window?.rootViewController! as! UINavigationController).visibleViewController!.view.layer.addSublayer(emitterLayer)
         }
     }
     

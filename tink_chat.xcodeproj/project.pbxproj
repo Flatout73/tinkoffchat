@@ -19,6 +19,7 @@
 		71304DAC1EAD0558008A61F5 /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71304DAB1EAD0558008A61F5 /* MessagesModel.swift */; };
 		7149B5B21E940990006D0298 /* GCDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7149B5B11E940990006D0298 /* GCDataManager.swift */; };
 		7149B5B41E940AA9006D0298 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7149B5B31E940AA9006D0298 /* OperationDataManager.swift */; };
+		717BF95D1EDB6E0D00337F37 /* TouchRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717BF95C1EDB6E0D00337F37 /* TouchRecognizer.swift */; };
 		718112BF1ED5A23000819DDD /* IRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112BE1ED5A23000819DDD /* IRequest.swift */; };
 		718112C11ED5A2FA00819DDD /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C01ED5A2FA00819DDD /* Parser.swift */; };
 		718112C31ED5A35300819DDD /* RequestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718112C21ED5A35300819DDD /* RequestConfig.swift */; };
@@ -81,6 +82,7 @@
 		71304DAB1EAD0558008A61F5 /* MessagesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		7149B5B11E940990006D0298 /* GCDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDataManager.swift; sourceTree = "<group>"; };
 		7149B5B31E940AA9006D0298 /* OperationDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
+		717BF95C1EDB6E0D00337F37 /* TouchRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchRecognizer.swift; sourceTree = "<group>"; };
 		718112BE1ED5A23000819DDD /* IRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRequest.swift; sourceTree = "<group>"; };
 		718112C01ED5A2FA00819DDD /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		718112C21ED5A35300819DDD /* RequestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestConfig.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				71E4EA531E6CDE7400CFF95A /* Info.plist */,
 				71E4EA4B1E6CDE7400CFF95A /* tink_chat.xcdatamodeld */,
 				710BB7C71E9319BD0027FD99 /* data.plist */,
+				717BF95C1EDB6E0D00337F37 /* TouchRecognizer.swift */,
 			);
 			path = tink_chat;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				718112C71ED5A55D00819DDD /* RequestFactory.swift in Sources */,
 				718112CB1ED5D48900819DDD /* ImageRequest.swift in Sources */,
 				7149B5B41E940AA9006D0298 /* OperationDataManager.swift in Sources */,
+				717BF95D1EDB6E0D00337F37 /* TouchRecognizer.swift in Sources */,
 				718112C31ED5A35300819DDD /* RequestConfig.swift in Sources */,
 				71B600FA1EC8B4B000E3BA09 /* ExtensionAppUser.swift in Sources */,
 				718F5FDE1ED5F0CC0081479B /* CollectionModel.swift in Sources */,
