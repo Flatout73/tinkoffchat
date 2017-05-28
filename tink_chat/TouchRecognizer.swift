@@ -23,10 +23,9 @@ class SingleTouchDownGestureRecognizer: UIGestureRecognizer {
     let cell = CAEmitterCell()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.state == .possible {
-            self.state = .recognized
-        }
         
+        super.touchesBegan(touches, with: event!)
+    
         if let touch = touches.first {
             let position = touch.location(in: (window?.rootViewController! as! UINavigationController).view)
             print(position)
@@ -46,15 +45,15 @@ class SingleTouchDownGestureRecognizer: UIGestureRecognizer {
             
             (window?.rootViewController! as! UINavigationController).visibleViewController!.view.layer.addSublayer(emitterLayer)
         }
+        
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.state == .possible {
-            self.state = .recognized
-        }
         
         cell.birthRate = 0
         emitterLayer.removeFromSuperlayer()
         
+        self.state = .cancelled
     }
 }
