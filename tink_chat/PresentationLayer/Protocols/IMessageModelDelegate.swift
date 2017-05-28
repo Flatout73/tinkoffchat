@@ -10,4 +10,5 @@ import Foundation
 
 protocol IMessagesModelDelegate: class {
     func didReceiveMessage(text: String)
+    func animateEnableButton(enable: Bool)
 }

@@ -49,6 +49,14 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.title = titleTo
         
+        let titleLabelView = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
+        titleLabelView.backgroundColor = UIColor.clear
+        titleLabelView.textAlignment = .center
+        titleLabelView.textColor = UIColor.black
+        titleLabelView.adjustsFontSizeToFitWidth = true
+        titleLabelView.text = titleTo
+        self.navigationItem.titleView = titleLabelView
+        
         textBox.delegate = self
         
 //        if(history) {
@@ -70,11 +78,52 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
 
     
     override func viewDidAppear(_ animated: Bool) {
-        sendButton.isEnabled = messagesModel!.enableButton()
+        animateEnableButton(enable: messagesModel!.enableButton())
+        
         let last = (messagesModel?.frc?.sections?[0].numberOfObjects)! - 1
         
         if(last > 0) {
             table.scrollToRow(at: IndexPath( row: last, section: 0), at: .bottom, animated: true)
+        }
+    }
+    
+    func animateEnableButton(enable: Bool) {
+        
+        if(enable) {
+            sendButton.isEnabled = true
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+            }, completion: {
+                (finish: Bool) in UIView.animate(withDuration: 0.1, animations: { self.sendButton.transform = CGAffineTransform.identity })
+            })
+            
+            let animation = CATransition()
+            animation.duration = 1
+            animation.type = kCATransitionFade
+            
+            navigationController?.navigationBar.layer.add(animation, forKey: "fadeText")
+            
+            if let label = self.navigationItem.titleView as? UILabel {
+                label.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                label.textColor = UIColor.green
+                label.sizeToFit()
+            }
+            
+        } else{
+            sendButton.isEnabled = false
+            
+            let animation = CATransition()
+            animation.duration = 1
+            animation.type = kCATransitionFade
+            
+            navigationController?.navigationBar.layer.add(animation, forKey: "fadeTextFalse")
+            
+            if let label = self.navigationItem.titleView as? UILabel {
+                label.transform = CGAffineTransform.identity
+                label.textColor = UIColor.black
+                label.sizeToFit()
+            }
         }
     }
     
@@ -245,6 +294,13 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
         return true
     }
     
+    var isEnabler = false
+    @IBAction func doOnline(_ sender: Any) {
+        animateEnableButton(enable: !isEnabler)
+        isEnabler = !isEnabler
+    }
+    
+    
 //    func updateTableContentInset() {
 //        var numRows = tableView(table, numberOfRowsInSection: 0)
 //        var contentInsetTop = self.table.bounds.size.height
@@ -268,6 +324,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     */
 
+    
 }
 
 

@@ -13,6 +13,8 @@ protocol IMessagesModel: class {
     weak var delegate: IMessagesModelDelegate? {get set}
     func didReceiveMessage(text: String)
     func enableButton() -> Bool
+    func didFoundUser(userID: String)
+    func didLostUser(userID: String)
 }
 
 class MessagesModel: IMessagesModel {
@@ -52,5 +54,17 @@ class MessagesModel: IMessagesModel {
     
     func enableButton() -> Bool {
         return storage!.getUserOnlineBy(peerID: peerID)
+    }
+    
+    func didFoundUser(userID: String) {
+        if(peerID == userID) {
+            delegate?.animateEnableButton(enable: true)
+        }
+    }
+    
+    func didLostUser(userID: String) {
+        if(peerID == userID) {
+            delegate?.animateEnableButton(enable: false)
+        }
     }
 }

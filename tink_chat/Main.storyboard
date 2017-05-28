@@ -121,7 +121,7 @@
             </objects>
             <point key="canvasLocation" x="-645" y="223"/>
         </scene>
-        <!--Messages View Controller-->
+        <!--Title-->
         <scene sceneID="LI8-0R-QEf">
             <objects>
                 <viewController id="bCP-XM-sI8" customClass="MessagesViewController" customModule="tink_chat" customModuleProvider="target" sceneMemberID="viewController">
@@ -145,10 +145,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqY-rB-eCS">
-                                                    <rect key="frame" x="8" y="4" width="58" height="36.666666666666664"/>
+                                                    <rect key="frame" x="8" y="4" width="58" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un9-SM-Ruq">
-                                                            <rect key="frame" x="8" y="8" width="42" height="20.666666666666664"/>
+                                                            <rect key="frame" x="8" y="8" width="42" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -168,7 +168,6 @@
                                                 <constraint firstItem="XqY-rB-eCS" firstAttribute="width" relation="lessThanOrEqual" secondItem="Pbs-8e-Meg" secondAttribute="width" multiplier="0.75" id="FAo-bF-HYU"/>
                                                 <constraint firstItem="XqY-rB-eCS" firstAttribute="top" secondItem="Pbs-8e-Meg" secondAttribute="top" constant="4" id="Gbl-Kt-Gje"/>
                                                 <constraint firstAttribute="bottom" secondItem="XqY-rB-eCS" secondAttribute="bottom" constant="4" id="eZ8-U2-kHS"/>
-                                                <constraint firstItem="XqY-rB-eCS" firstAttribute="centerY" secondItem="Pbs-8e-Meg" secondAttribute="centerY" id="o2g-QC-3ph"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -245,6 +244,13 @@
                             <constraint firstItem="5Fo-tw-ZgF" firstAttribute="leading" secondItem="S1c-KJ-eRX" secondAttribute="leading" id="o0C-NW-TFD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="ezN-TM-NjP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="eyp-qo-5Yc">
+                            <connections>
+                                <action selector="doOnline:" destination="bCP-XM-sI8" id="Fxk-GL-eCS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bottomConstraint" destination="mNb-QT-jR7" id="gtA-tP-LWu"/>
                         <outlet property="sendButton" destination="NGM-c6-wxn" id="5qW-wU-8vf"/>

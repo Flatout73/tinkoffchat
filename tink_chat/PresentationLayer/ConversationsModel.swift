@@ -19,6 +19,8 @@ protocol IConversationsModel: class {
 
 class ConversationsModel: IConversationsModel {
     weak var delegate: IConversationsModelDelegate?
+    weak var messagesModel: IMessagesModel?
+    
     
     var frc: NSFetchedResultsController<Conversation>
 
@@ -43,6 +45,7 @@ class ConversationsModel: IConversationsModel {
     func addUser(name: String, ID: String) {
         //self.delegate?.addUser(name: name, ID: ID, message: nil, date: Date(), unread: false, online: true)
         store.foundUser(name: name, ID: ID)
+        messagesModel?.didFoundUser(userID: ID)
 //        DispatchQueue.main.async{
 //            self.table.reloadData()
 //        }
@@ -51,6 +54,7 @@ class ConversationsModel: IConversationsModel {
     func deleteUser(peerID: String) {
         //self.delegate?.deleteUser(peerID: peerID)
         store.lostUser(peerID: peerID)
+        messagesModel?.didLostUser(userID: peerID)
 //        DispatchQueue.main.async {
 //            self.table.reloadData()
 //        }
