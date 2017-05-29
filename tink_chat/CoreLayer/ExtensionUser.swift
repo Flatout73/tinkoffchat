@@ -10,16 +10,16 @@ import Foundation
 import CoreData
 
 extension User{
-    private static func insertUser(in context: NSManagedObjectContext,  userId: String, isOnline: Bool, name: String)->User? {
+    static func insertUser(in context: NSManagedObjectContext,  userId: String, isOnline: Bool, name: String)->User? {
         
         if let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User {
             user.userId = userId
             user.isOnline = isOnline
             user.name = name
             
-            let converstion = Conversation.insertConversation(in: context, conversationId: userId, isOnline: isOnline)
+            //let converstion = Conversation.insertConversation(in: context, conversationId: userId, isOnline: isOnline)
             
-            user.addToConversations(converstion!)
+            //user.addToConversations(converstion!)
             
             return user
         }

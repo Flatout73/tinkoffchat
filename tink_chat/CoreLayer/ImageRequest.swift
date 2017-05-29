@@ -16,7 +16,7 @@ class ImageRequest: IRequest {
     private var imageType = "photo"
     private var pretty = true
     private var perPage = 100
-    private var q = "yellow+flowers"
+    private var q = "green+cars"
     
     private var getParameters: [String: String] {
         return ["q": q,

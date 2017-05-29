@@ -53,11 +53,13 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     override func viewDidAppear(_ animated: Bool) {
         //conversationsModel.deleteUser(peerID: "121")
     }
-//    var k = 121
-//    @IBAction func createUser(_ sender: Any) {
-//        conversationsModel.addUser(name: "kik", ID: String(k))
-//        k += 1
-//    }
+    
+    //для тестов
+    var k = 121
+    @IBAction func createUser(_ sender: Any) {
+        conversationsModel.addUser(name: "Leo", ID: String(k))
+        k += 1
+    }
     
     func addUser(name: String, ID: String, message: String?, date: Date = Date(), unread: Bool = false, online: Bool = true) {
         
@@ -194,7 +196,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
             }
             //c.name = (conversation.participants?.array.first as! User).name
             if let last = conversation.lastMessage{
-                c.date = last.date as! Date
+                c.date = last.date as Date?
             } else {
                 c.date = Date()
             }
@@ -274,7 +276,6 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
             conversationsModel.prepare(for: profileController as! ProfileViewController)
         }
     }
-    
 }
 
 extension ConversationsListViewController: NSFetchedResultsControllerDelegate {

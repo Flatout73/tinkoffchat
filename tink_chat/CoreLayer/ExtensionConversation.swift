@@ -12,7 +12,7 @@ import CoreData
 
 //id у конверсейшена совпадает с id юзера
 extension Conversation{
-    static func insertConversation(in context: NSManagedObjectContext, conversationId: String, isOnline: Bool)->Conversation? {
+    private static func insertConversation(in context: NSManagedObjectContext, conversationId: String, isOnline: Bool, name: String)->Conversation? {
         
         if let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation", into: context) as? Conversation {
             conversation.conversationID = conversationId
@@ -20,10 +20,34 @@ extension Conversation{
             
             conversation.lastMessage = nil
             
+            let user = User.insertUser(in: context, userId: conversationId, isOnline: true, name: name)
+            
+            conversation.addToParticipants(user!)
+            
             return conversation
         }
         
         return nil
+    }
+    
+    static func findOrInsertConversation(in context: NSManagedObjectContext, ID: String, name: String) -> Conversation? {
+        
+        
+            if let conversation = findConversation(in: context, conversationId: ID) {
+                conversation.isOnline = true
+                if let users = conversation.participants as? Set<User> {
+                    for user in users {
+                        user.isOnline = true
+                        user.name = name
+                    }
+                }
+                //(user.conversations?.array.first as? Conversation)?.isOnline = true
+                
+                return conversation
+            } else {
+                return insertConversation(in: context, conversationId: ID, isOnline: true, name: name)
+            }
+        
     }
     
     static func findConversation(in context: NSManagedObjectContext, conversationId: String) ->Conversation? {

@@ -81,8 +81,4 @@ class ConversationsModel: IConversationsModel {
         segueController.model = model
     }
     
-    func makeAllOffline() {
-        
-    }
-    
 }

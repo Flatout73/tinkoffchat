@@ -44,7 +44,7 @@ class CollectionViewController: UICollectionViewController {
                     self.collectionView?.reloadData()
                     self.indicator.stopAnimating()
                 } else {
-                    print(error)
+                    print(error as Any)
                     let alert = UIAlertController(title: "Ошибка", message: error, preferredStyle: UIAlertControllerStyle.alert)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -60,12 +60,15 @@ class CollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! ImageCell
         
-        if let oldImage: UIImage = imageArray?[indexPath.row] {
-            cell.imageView.image = oldImage
-        } else {
-            cell.imageView.image = #imageLiteral(resourceName: "noimage")
-            downloadImage(indexPath: indexPath, cell: cell)
-        }
+            if let oldImage: UIImage = self.imageArray?[indexPath.row] {
+                cell.imageView.image = oldImage
+                //print("Использую старую картинку", indexPath)
+            } else {
+                cell.imageView.image = #imageLiteral(resourceName: "noimage")
+                //print("Обнулил", indexPath)
+                self.downloadImage(indexPath: indexPath, cell: cell)
+            }
+        
         // Configure the cell
         return cell
     }
@@ -77,18 +80,18 @@ class CollectionViewController: UICollectionViewController {
             do{
                 let url = URL(string: self.searches[indexPath.row].imageURL)
                 let imageData = try Data(contentsOf: url!)
+        
+                let image = UIImage(data: imageData)
+            
                 
-                var image: UIImage?
-                
-                if imageData != nil {
-                    image = UIImage(data: imageData)
-                }
                 if let im = image {
                     self.imageArray?[indexPath.row] = im
                 }
                 //let cell = self.collectionView?.cellForItem(at: indexPath) as! ImageCell
                 DispatchQueue.main.async {
-                    cell.imageView.image = image
+                    //cell.imageView.image = image
+                    self.collectionView?.reloadItems(at: [indexPath])
+                    //print("Загрузил картинку", indexPath)
                 }
             } catch {
                 print(error)
@@ -99,8 +102,26 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        //TODO: избавить от форс анврапа (принудительно загружать картинки)
         
-        delegate?.chooseImage(image: imageArray![indexPath.row]!)
+        if let image = imageArray?[indexPath.row] {
+            delegate?.chooseImage(image: image)
+        } else {
+            
+            DispatchQueue.main.async {
+                let url = URL(string: self.searches[indexPath.row].imageURL)
+                let imageData = try? Data(contentsOf: url!)
+                
+                var image: UIImage?
+                
+                if imageData != nil {
+                    image = UIImage(data: imageData!)
+                    self.delegate?.chooseImage(image: image!)
+                }
+            }
+            
+            
+        }
         dismiss(animated: true, completion: nil)
         
         return true

@@ -83,8 +83,8 @@ class StoreManager: ISaver, ISaverConversation {
     
     
     func foundUser(name: String, ID: String) {
-        _ = User.findOrInsertUser(in: dataBaseOld.saveContext!, peerID: ID, name: name)
-        //_ = Conversation.insertConversation(in: dataBaseOld.saveContext!, conversationId: ID, isOnline: true)
+        _ = Conversation.findOrInsertConversation(in: dataBaseOld.saveContext!, ID: ID, name: name)
+ 
         dataBaseOld.performSave(context: dataBaseOld.saveContext!){ err in
             if let e = err {
                 print("Все плохо: ", e)
