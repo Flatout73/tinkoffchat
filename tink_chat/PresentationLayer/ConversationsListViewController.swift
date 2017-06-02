@@ -137,7 +137,11 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     func numberOfSections(in tableView: UITableView) -> Int {
         //return 2
         
-        return (conversationsModel.frc.sections?.count)!
+        if let count = conversationsModel.frc.sections?.count {
+            return count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

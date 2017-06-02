@@ -31,6 +31,7 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
 //    }()
     
     var sessions = [String: MCSession]()
+    var peersNicknames = [String: String]()
     
     override init() {
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName" : myName], serviceType: serviceType)
@@ -68,8 +69,9 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
             } catch{
                 print(error)
             }
-            delegate?.didFoundUser(userID: peerID.displayName, userName: userName)
-            let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
+            //delegate?.didFoundUser(userID: peerID.displayName, userName: userName)
+            peersNicknames[peerID.displayName] = userName
+            let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .none)
             session.delegate = self
             
             invitationHandler(true, session)
@@ -93,8 +95,9 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
         print(info as Any)
         
         if(sessions[peerID.displayName] == nil && peerID.displayName != myPeerId.displayName) {
-            delegate?.didFoundUser(userID: peerID.displayName, userName: info?["userName"])
-            let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
+            //delegate?.didFoundUser(userID: peerID.displayName, userName: info?["userName"])
+            peersNicknames[peerID.displayName] = info?["userName"]
+            let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .none)
             session.delegate = self
             let context = "{\"userName\": \"\(myName)\"}"
             browser.invitePeer(peerID, to: session, withContext: context.data(using: .utf8), timeout: 30)
@@ -109,9 +112,10 @@ class MultipeerCommunicator : NSObject, MCNearbyServiceAdvertiserDelegate, MCNea
             sessions[peerID.displayName] = nil
             delegate?.didLostUser(userID: peerID.displayName)
             
-            session.cancelConnectPeer(peerID)
+            //session.cancelConnectPeer(peerID)
         } else if(state == .connected) {
             //sessions[peerID.displayName] = session
+            delegate?.didFoundUser(userID: peerID.displayName, userName: peersNicknames[peerID.displayName])
             print("Found again!")
         }
     }

@@ -18,9 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGestureRecognizerDelega
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let tapGesture = SingleTouchDownGestureRecognizer(target: self, action: nil, window: window)
-        //tapGesture.delegate = self
-        //window?.isUserInteractionEnabled = true
-        window?.addGestureRecognizer(tapGesture)
+   
+        //window?.addGestureRecognizer(tapGesture)
         
         return true
     }
