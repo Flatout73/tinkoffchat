@@ -166,14 +166,15 @@ class StoreManager: ISaver, ISaverConversation {
         
         let fetchRequest: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         
+        let sortDescriptorOnline = NSSortDescriptor(key: "isOnline", ascending: false)
         let sortDescriptors = NSSortDescriptor(key: "conversationID", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptors]
-        
+        fetchRequest.sortDescriptors = [sortDescriptorOnline, sortDescriptors]
         dataBaseOld.mainContext?.stalenessInterval = 0
         
         fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest:
             fetchRequest, managedObjectContext: dataBaseOld.mainContext!, sectionNameKeyPath: #keyPath(Conversation.isOnline), cacheName: nil)
         
+        print(#keyPath(Conversation.isOnline))
         //fetchedResultsController?.delegate = dataProvider
         return fetchedResultsController!
         

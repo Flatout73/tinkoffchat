@@ -71,6 +71,8 @@ class ConversationsModel: IConversationsModel {
         model.storage = store
         model.delegate = segueController
         model.frc = store.getFRCForMessagesWith(conversationID: peerID)
+        
+        messagesModel = model
         manager.add(messagesController: model)
         segueController.messagesModel = model
     }
